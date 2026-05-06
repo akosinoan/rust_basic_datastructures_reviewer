@@ -3,12 +3,7 @@ mod exercises;
 #[cfg(feature = "solutions")]
 mod solutions;
 
-use crossterm::{
-    cursor,
-    execute,
-    style::Stylize,
-    terminal,
-};
+use crossterm::{cursor, execute, style::Stylize, terminal};
 use notify::{Event, RecursiveMode, Watcher};
 use std::collections::HashMap;
 use std::io::{self, Write};
@@ -29,6 +24,7 @@ static SECTIONS: &[(&str, &str, &[&str])] = &[
             "ex03_sorting",
             "ex04_two_pointers",
             "ex05_prefix_sum",
+            "quiz",
         ],
     ),
     (
@@ -39,6 +35,7 @@ static SECTIONS: &[(&str, &str, &[&str])] = &[
             "ex02_frequency",
             "ex03_entry_api",
             "ex04_two_sum",
+            "quiz",
         ],
     ),
     (
@@ -49,17 +46,18 @@ static SECTIONS: &[(&str, &str, &[&str])] = &[
             "ex02_chars",
             "ex03_manipulation",
             "ex04_palindrome",
+            "quiz",
         ],
     ),
     (
         "04_stacks",
         "stacks",
-        &["ex01_basics", "ex02_valid_parens", "ex03_monotonic"],
+        &["ex01_basics", "ex02_valid_parens", "ex03_monotonic", "quiz"],
     ),
     (
         "05_queues",
         "queues",
-        &["ex01_basics", "ex02_sliding_window"],
+        &["ex01_basics", "ex02_sliding_window", "quiz"],
     ),
     (
         "06_leetcode",
@@ -87,15 +85,51 @@ type Results = HashMap<String, HashMap<String, HashMap<String, TestResult>>>;
 
 // ── Test runner ──────────────────────────────────────────────────────────────
 
-fn run_cargo_test() -> String {
+// Returns Ok(combined output) on success, Err(formatted error) on compile failure.
+fn run_cargo_test() -> Result<String, String> {
     let output = Command::new("cargo")
         .args(["test"])
+        .env("RUSTFLAGS", "-Awarnings")
         .output()
         .expect("failed to spawn cargo test");
 
-    let mut out = String::from_utf8_lossy(&output.stdout).into_owned();
-    out.push_str(&String::from_utf8_lossy(&output.stderr));
-    out
+    let stdout = String::from_utf8_lossy(&output.stdout).into_owned();
+    let stderr = String::from_utf8_lossy(&output.stderr).into_owned();
+
+    if stderr.contains("error[") || stderr.contains("error: could not compile") {
+        return Err(extract_compile_error(&stderr));
+    }
+
+    let mut combined = stdout;
+    combined.push_str(&stderr);
+    Ok(combined)
+}
+
+fn extract_compile_error(stderr: &str) -> String {
+    let lines: Vec<&str> = stderr.lines().collect();
+
+    // Find where the first real error starts
+    let start = lines
+        .iter()
+        .position(|l| l.starts_with("error[") || l.starts_with("error: "))
+        .unwrap_or(0);
+
+    // Find where "could not compile" ends the block
+    let end = lines
+        .iter()
+        .rposition(|l| l.contains("could not compile"))
+        .map(|i| i + 1)
+        .unwrap_or(lines.len());
+
+    lines[start..end.min(lines.len())]
+        .iter()
+        // Drop trailing "aborting due to" noise — "could not compile" is cleaner
+        .filter(|l| !l.trim_start().starts_with("aborting due to"))
+        // Drop pure warning lines that slipped in
+        .filter(|l| !l.starts_with("warning"))
+        .cloned()
+        .collect::<Vec<_>>()
+        .join("\n")
 }
 
 // ── Parser ───────────────────────────────────────────────────────────────────
@@ -208,11 +242,15 @@ fn format_fn_name(raw: &str) -> String {
 }
 
 fn progress_bar(done: usize, total: usize) -> String {
-    let filled = if total > 0 { done * BAR_WIDTH / total } else { 0 };
+    let filled = if total > 0 {
+        done * BAR_WIDTH / total
+    } else {
+        0
+    };
     format!("{}{}", "█".repeat(filled), "░".repeat(BAR_WIDTH - filled))
 }
 
-fn render(results: &Results) {
+fn render(results: &Results, compile_error: Option<&str>) {
     clear_screen();
     let mut stdout = io::stdout();
 
@@ -223,18 +261,15 @@ fn render(results: &Results) {
     // ── Header ──────────────────────────────────────────────────────────────
     println!(
         "{}",
-        "┌──────────────────────────────────────────────────────────────┐"
-            .dark_grey()
+        "┌──────────────────────────────────────────────────────────────┐".dark_grey()
     );
     println!(
         "{}",
-        "│          Rust DSA Reviewer · Phase 1 Foundations            │"
-            .dark_grey()
+        "│          Rust DSA Reviewer ·                                 │".dark_grey()
     );
     println!(
         "{}",
-        "└──────────────────────────────────────────────────────────────┘"
-            .dark_grey()
+        "└──────────────────────────────────────────────────────────────┘".dark_grey()
     );
     println!();
 
@@ -276,7 +311,12 @@ fn render(results: &Results) {
         let label = format!("{:<14}", dir);
 
         if file_done == files.len() {
-            println!("  {} {} {}", label.green().bold(), bar.green(), count.green());
+            println!(
+                "  {} {} {}",
+                label.green().bold(),
+                bar.green(),
+                count.green()
+            );
         } else if file_done > 0 {
             println!(
                 "  {} {} {}",
@@ -308,7 +348,7 @@ fn render(results: &Results) {
         println!("  {}", RULE.green());
         println!(
             "  {}",
-            "  All 23 exercises complete! Phase 1 done.  "
+            "  All 28 exercises complete! Phase 1 done.  "
                 .black()
                 .on_green()
                 .bold()
@@ -317,11 +357,7 @@ fn render(results: &Results) {
     } else if let Some((dir, module, file)) = current {
         let heading = format!(" Current ──── {}::{} ", module, file);
         let pad = RULE.len().saturating_sub(heading.len());
-        println!(
-            "  {}{}",
-            heading.cyan().bold(),
-            "─".repeat(pad).dark_grey()
-        );
+        println!("  {}{}", heading.cyan().bold(), "─".repeat(pad).dark_grey());
         println!();
         println!(
             "  {}",
@@ -361,6 +397,26 @@ fn render(results: &Results) {
         println!("  {}", RULE.dark_grey());
     }
 
+    // ── Compile error panel ──────────────────────────────────────────────────
+    if let Some(err) = compile_error {
+        println!();
+        println!(
+            "  {} {}",
+            "✗ Compilation Error".black().on_red().bold(),
+            "─".repeat(40).red()
+        );
+        println!();
+        for line in err.lines() {
+            println!("  {}", line.red());
+        }
+        println!();
+        println!(
+            "  {}",
+            "Fix the error above and save to continue.".dark_yellow()
+        );
+        println!("  {}", RULE.red());
+    }
+
     println!();
     println!(
         "  {}",
@@ -381,9 +437,14 @@ fn main() {
 
     // Initial run
     show_running();
-    let raw = run_cargo_test();
-    let results = parse_results(&raw);
-    render(&results);
+    let mut last_results: Results = HashMap::new();
+    match run_cargo_test() {
+        Ok(raw) => {
+            last_results = parse_results(&raw);
+            render(&last_results, None);
+        }
+        Err(err) => render(&last_results, Some(&err)),
+    }
 
     let mut pending = false;
 
@@ -400,9 +461,13 @@ fn main() {
                     while rx.try_recv().is_ok() {}
 
                     show_running();
-                    let raw = run_cargo_test();
-                    let results = parse_results(&raw);
-                    render(&results);
+                    match run_cargo_test() {
+                        Ok(raw) => {
+                            last_results = parse_results(&raw);
+                            render(&last_results, None);
+                        }
+                        Err(err) => render(&last_results, Some(&err)),
+                    }
                     pending = false;
                 }
             }
