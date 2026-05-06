@@ -1,10 +1,9 @@
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 
 pub fn two_sum(nums: &[i32], target: i32) -> (usize, usize) {
     let mut map: HashMap<i32, usize> = HashMap::new();
     for (i, &n) in nums.iter().enumerate() {
-        let complement = target - n;
-        if let Some(&j) = map.get(&complement) {
+        if let Some(&j) = map.get(&(target - n)) {
             return (j, i);
         }
         map.insert(n, i);
@@ -13,31 +12,29 @@ pub fn two_sum(nums: &[i32], target: i32) -> (usize, usize) {
 }
 
 pub fn has_pair_with_sum(nums: &[i32], target: i32) -> bool {
-    let mut seen = HashMap::new();
+    let mut seen: HashSet<i32> = HashSet::new();
     for &n in nums {
-        if seen.contains_key(&(target - n)) {
+        if seen.contains(&(target - n)) {
             return true;
         }
-        seen.insert(n, true);
+        seen.insert(n);
     }
     false
 }
 
 pub fn all_pairs_with_sum(nums: &[i32], target: i32) -> Vec<(i32, i32)> {
-    use std::collections::HashSet;
-    let mut seen = HashSet::new();
-    let mut result = HashSet::new();
+    let mut seen: HashSet<i32> = HashSet::new();
+    let mut pairs: HashSet<(i32, i32)> = HashSet::new();
     for &n in nums {
         let complement = target - n;
         if seen.contains(&complement) {
-            let pair = (n.min(complement), n.max(complement));
-            result.insert(pair);
+            pairs.insert((n.min(complement), n.max(complement)));
         }
         seen.insert(n);
     }
-    let mut v: Vec<_> = result.into_iter().collect();
-    v.sort();
-    v
+    let mut out: Vec<_> = pairs.into_iter().collect();
+    out.sort();
+    out
 }
 
 pub fn three_sum(nums: &mut Vec<i32>) -> Vec<Vec<i32>> {

@@ -1,9 +1,5 @@
 pub fn build_vec() -> Vec<i32> {
-    let mut v = Vec::new();
-    for i in 1..=5 {
-        v.push(i);
-    }
-    v
+    (1..=5).collect()
 }
 
 pub fn last_element(mut v: Vec<i32>) -> i32 {

@@ -1,12 +1,8 @@
 use std::collections::VecDeque;
 
 pub fn fifo_order(tasks: &[&str]) -> Vec<String> {
-    let mut q: VecDeque<String> = tasks.iter().map(|s| s.to_string()).collect();
-    let mut result = Vec::new();
-    while let Some(t) = q.pop_front() {
-        result.push(t);
-    }
-    result
+    let q: VecDeque<String> = tasks.iter().map(|s| s.to_string()).collect();
+    q.into_iter().collect()
 }
 
 pub struct CircularBuffer {

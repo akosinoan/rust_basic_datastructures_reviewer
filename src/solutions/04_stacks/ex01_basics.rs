@@ -1,28 +1,36 @@
 pub fn eval_rpn(tokens: &[&str]) -> i32 {
     let mut stack: Vec<i32> = Vec::new();
     for &token in tokens {
-        match token {
-            "+" | "-" | "*" | "/" => {
-                let b = stack.pop().unwrap();
-                let a = stack.pop().unwrap();
-                let result = match token {
-                    "+" => a + b,
-                    "-" => a - b,
-                    "*" => a * b,
-                    "/" => a / b,
-                    _ => unreachable!(),
-                };
-                stack.push(result);
-            }
-            n => stack.push(n.parse().unwrap()),
+        if let Ok(n) = token.parse::<i32>() {
+            stack.push(n);
+        } else {
+            let b = stack.pop().expect("rpn: stack underflow");
+            let a = stack.pop().expect("rpn: stack underflow");
+            stack.push(apply_op(token, a, b));
         }
     }
     stack[0]
 }
 
+fn apply_op(op: &str, a: i32, b: i32) -> i32 {
+    match op {
+        "+" => a + b,
+        "-" => a - b,
+        "*" => a * b,
+        "/" => a / b,
+        other => unreachable!("unknown operator: {other}"),
+    }
+}
+
 pub struct MinStack {
     stack: Vec<i32>,
     min_stack: Vec<i32>,
+}
+
+impl Default for MinStack {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl MinStack {
@@ -35,8 +43,11 @@ impl MinStack {
 
     pub fn push(&mut self, val: i32) {
         self.stack.push(val);
-        let min = self.min_stack.last().copied().unwrap_or(i32::MAX).min(val);
-        self.min_stack.push(min);
+        let new_min = match self.min_stack.last() {
+            Some(&cur) => cur.min(val),
+            None => val,
+        };
+        self.min_stack.push(new_min);
     }
 
     pub fn pop(&mut self) {
@@ -45,11 +56,11 @@ impl MinStack {
     }
 
     pub fn top(&self) -> i32 {
-        *self.stack.last().unwrap()
+        *self.stack.last().expect("top: stack empty")
     }
 
     pub fn get_min(&self) -> i32 {
-        *self.min_stack.last().unwrap()
+        *self.min_stack.last().expect("get_min: stack empty")
     }
 }
 

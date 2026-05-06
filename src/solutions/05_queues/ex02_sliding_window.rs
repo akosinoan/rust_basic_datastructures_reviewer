@@ -49,17 +49,19 @@ pub fn sliding_window_maximum(nums: &[i32], k: usize) -> Vec<i32> {
     let mut deque: VecDeque<usize> = VecDeque::new();
     let mut result = Vec::new();
     for i in 0..nums.len() {
-        // remove indices outside the window
-        while deque.front().map_or(false, |&f| f + k <= i) {
+        // drop indices that have fallen out of the window
+        while deque.front().is_some_and(|&f| f + k <= i) {
             deque.pop_front();
         }
-        // remove indices whose values are smaller than current
-        while deque.back().map_or(false, |&b| nums[b] <= nums[i]) {
+        // drop tail indices whose values can no longer be the window max
+        while deque.back().is_some_and(|&b| nums[b] <= nums[i]) {
             deque.pop_back();
         }
         deque.push_back(i);
         if i + 1 >= k {
-            result.push(nums[*deque.front().unwrap()]);
+            if let Some(&front) = deque.front() {
+                result.push(nums[front]);
+            }
         }
     }
     result

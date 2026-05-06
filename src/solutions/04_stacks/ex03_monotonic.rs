@@ -40,17 +40,15 @@ pub fn largest_rectangle_in_histogram(heights: &[i32]) -> i32 {
     for i in 0..=n {
         let h = if i == n { 0 } else { heights[i] };
         while let Some(&top) = stack.last() {
-            if heights[top] > h {
-                stack.pop();
-                let width = if stack.is_empty() {
-                    i
-                } else {
-                    i - stack.last().unwrap() - 1
-                };
-                max_area = max_area.max(heights[top] * width as i32);
-            } else {
+            if heights[top] <= h {
                 break;
             }
+            stack.pop();
+            let width = match stack.last() {
+                Some(&prev) => i - prev - 1,
+                None => i,
+            };
+            max_area = max_area.max(heights[top] * width as i32);
         }
         stack.push(i);
     }

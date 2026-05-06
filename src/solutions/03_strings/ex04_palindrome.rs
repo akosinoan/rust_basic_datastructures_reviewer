@@ -1,6 +1,4 @@
-pub fn is_palindrome_exact(s: &str) -> bool {
-    let chars: Vec<char> = s.chars().collect();
-    let (mut l, mut r) = (0, chars.len().saturating_sub(1));
+fn is_pal(chars: &[char], mut l: usize, mut r: usize) -> bool {
     while l < r {
         if chars[l] != chars[r] {
             return false;
@@ -9,6 +7,15 @@ pub fn is_palindrome_exact(s: &str) -> bool {
         r -= 1;
     }
     true
+}
+
+fn last_index(chars: &[char]) -> usize {
+    chars.len().saturating_sub(1)
+}
+
+pub fn is_palindrome_exact(s: &str) -> bool {
+    let chars: Vec<char> = s.chars().collect();
+    is_pal(&chars, 0, last_index(&chars))
 }
 
 pub fn is_palindrome_lc(s: &str) -> bool {
@@ -17,35 +24,15 @@ pub fn is_palindrome_lc(s: &str) -> bool {
         .filter(|c| c.is_alphanumeric())
         .map(|c| c.to_ascii_lowercase())
         .collect();
-    let (mut l, mut r) = (0, chars.len().saturating_sub(1));
-    while l < r {
-        if chars[l] != chars[r] {
-            return false;
-        }
-        l += 1;
-        r -= 1;
-    }
-    true
+    is_pal(&chars, 0, last_index(&chars))
 }
 
 pub fn is_palindrome_one_deletion(s: &str) -> bool {
     let chars: Vec<char> = s.chars().collect();
-
-    fn check(chars: &[char], mut l: usize, mut r: usize) -> bool {
-        while l < r {
-            if chars[l] != chars[r] {
-                return false;
-            }
-            l += 1;
-            r -= 1;
-        }
-        true
-    }
-
-    let (mut l, mut r) = (0, chars.len().saturating_sub(1));
+    let (mut l, mut r) = (0, last_index(&chars));
     while l < r {
         if chars[l] != chars[r] {
-            return check(&chars, l + 1, r) || check(&chars, l, r - 1);
+            return is_pal(&chars, l + 1, r) || is_pal(&chars, l, r - 1);
         }
         l += 1;
         r -= 1;
@@ -59,9 +46,8 @@ pub fn all_palindrome_substrings(s: &str) -> Vec<String> {
     let mut result = Vec::new();
     for i in 0..n {
         for j in i..n {
-            let sub: String = chars[i..=j].iter().collect();
-            if is_palindrome_exact(&sub) {
-                result.push(sub);
+            if is_pal(&chars, i, j) {
+                result.push(chars[i..=j].iter().collect());
             }
         }
     }

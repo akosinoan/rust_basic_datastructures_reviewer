@@ -9,11 +9,11 @@ pub fn char_frequency(s: &str) -> HashMap<char, usize> {
 }
 
 pub fn most_frequent_char(s: &str) -> char {
-    *char_frequency(s)
-        .iter()
-        .max_by_key(|(_, count)| *count)
+    char_frequency(s)
+        .into_iter()
+        .max_by_key(|&(_, count)| count)
         .map(|(c, _)| c)
-        .unwrap()
+        .expect("non-empty string")
 }
 
 pub fn is_anagram(a: &str, b: &str) -> bool {
