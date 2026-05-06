@@ -1,0 +1,9 @@
+[package]
+name = "rust_basic_datastructures_reviewer"
+version = "0.1.0"
+edition = "2024"
+
+[features]
+solutions = []
+
+[dependencies]
