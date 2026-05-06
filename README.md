@@ -2,7 +2,7 @@
 
 A self-directed, test-driven study system for mastering data structures and algorithms in Rust — modeled after [Rustlings](https://github.com/rust-lang/rustlings).
 
-Each exercise is a function stub with a `todo!()` macro and inline teaching notes. You implement the function, run `cargo test`, and iterate until all tests pass.
+Each exercise is a function stub with a `todo!()` macro and inline teaching notes. Implement the function, save the file, and the runner updates automatically.
 
 ---
 
@@ -19,11 +19,65 @@ The exercises are written in idiomatic Rust: ownership, iterators, the entry API
 ```bash
 git clone <this-repo>
 cd rust_basic_datastructures_reviewer
+cargo run
+```
 
-# See all 100 tests failing (that's the starting point)
+That's it. The interactive runner starts, runs all tests, and shows your current progress. Open an exercise file, implement the `todo!()`, save — the screen clears and updates within a second.
+
+---
+
+## Interactive Runner
+
+`cargo run` launches a live dashboard that:
+
+- Shows **section-by-section progress** from `01_vectors` through `06_leetcode`
+- Displays the **current exercise** — the first file in sequence that still has failures
+- Lists every function in that file with `✓` (passing) or `✗` (failing) and the `todo!()` hint
+- **Auto-reruns** on every file save with a 300ms debounce
+- Clears the screen cleanly between runs
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│          Rust DSA Reviewer · Phase 1 Foundations            │
+└──────────────────────────────────────────────────────────────┘
+
+  Progress
+  ──────────────────────────────────────────────────────────────
+  01_vectors     ████░░░░░░░░░░░░░░░░  1 / 5
+  02_hashmaps    ░░░░░░░░░░░░░░░░░░░░  0 / 4
+  03_strings     ░░░░░░░░░░░░░░░░░░░░  0 / 4
+  04_stacks      ░░░░░░░░░░░░░░░░░░░░  0 / 3
+  05_queues      ░░░░░░░░░░░░░░░░░░░░  0 / 2
+  06_leetcode    ░░░░░░░░░░░░░░░░░░░░  0 / 5
+
+  Total: 1 / 23 files complete
+
+  Current ──── vectors::ex02_iteration ───────────────────────
+
+  src/exercises/01_vectors/ex02_iteration.rs
+
+  1 / 5 passing
+
+  ✓  sum()
+  ✗  double_all()        Map each element to its double
+  ✗  keep_evens()        Filter elements where x % 2 == 0
+  ✗  first_negative_index()  Find position of first element < 0
+  ✗  concat_all()        Concatenate all strings into one
+```
+
+Section bars color-code automatically: grey = untouched · yellow = in progress · green = complete.
+
+---
+
+## Manual Test Commands
+
+If you prefer running tests directly:
+
+```bash
+# Full suite (100 tests, all failing at start)
 cargo test
 
-# Focus on one module at a time
+# By section
 cargo test vectors
 cargo test hashmaps
 cargo test strings
@@ -31,26 +85,27 @@ cargo test stacks
 cargo test queues
 cargo test leetcode
 
-# Focus on one file within a module
+# By file within a section
 cargo test vectors::ex01_basics
 cargo test hashmaps::ex03_entry_api
-cargo test stacks::ex02_valid_parens
 
-# Run a single test function
+# By individual test
 cargo test vectors::ex01_basics::tests::test_build_vec
 cargo test test_two_sum
 ```
 
-Open the exercise file, read the header comment, implement the `todo!()`, and run the tests. Repeat.
+---
 
-If you're stuck, the `src/solutions/` folder contains a complete reference implementation for every exercise — mirroring the same structure. Check it only after you've made a real attempt.
+## Solutions
+
+Every exercise has a reference implementation in `src/solutions/`, mirroring the same directory structure. It is hidden from the default test run — check it only after a genuine attempt.
 
 ```bash
-# Run only solution tests (all should pass — use as a reference)
-cargo test solutions
+# Run solution tests (opt-in, all should pass)
+cargo test --features solutions solutions
 
-# Run only exercise tests (your work — starts at 100 failing)
-cargo test exercises
+# Run both exercises and solutions
+cargo test --features solutions
 ```
 
 ---
@@ -128,37 +183,39 @@ Applying everything above to real interview problems — each with multiple appr
 
 ```
 src/
-├── main.rs                        # Usage instructions
-└── exercises/
-    ├── 01_vectors/
-    │   ├── ex01_basics.rs
-    │   ├── ex02_iteration.rs
-    │   ├── ex03_sorting.rs
-    │   ├── ex04_two_pointers.rs
-    │   └── ex05_prefix_sum.rs
-    ├── 02_hashmaps/
-    │   ├── ex01_basics.rs
-    │   ├── ex02_frequency.rs
-    │   ├── ex03_entry_api.rs
-    │   └── ex04_two_sum.rs
-    ├── 03_strings/
-    │   ├── ex01_basics.rs
-    │   ├── ex02_chars.rs
-    │   ├── ex03_manipulation.rs
-    │   └── ex04_palindrome.rs
-    ├── 04_stacks/
-    │   ├── ex01_basics.rs
-    │   ├── ex02_valid_parens.rs
-    │   └── ex03_monotonic.rs
-    ├── 05_queues/
-    │   ├── ex01_basics.rs
-    │   └── ex02_sliding_window.rs
-    └── 06_leetcode/
-        ├── lc001_two_sum.rs
-        ├── lc020_valid_parentheses.rs
-        ├── lc026_remove_duplicates.rs
-        ├── lc121_best_time_stocks.rs
-        └── lc217_contains_duplicate.rs
+├── main.rs                        # Interactive runner (cargo run)
+├── exercises/                     # Your work — all todo!() stubs
+│   ├── 01_vectors/
+│   │   ├── ex01_basics.rs
+│   │   ├── ex02_iteration.rs
+│   │   ├── ex03_sorting.rs
+│   │   ├── ex04_two_pointers.rs
+│   │   └── ex05_prefix_sum.rs
+│   ├── 02_hashmaps/
+│   │   ├── ex01_basics.rs
+│   │   ├── ex02_frequency.rs
+│   │   ├── ex03_entry_api.rs
+│   │   └── ex04_two_sum.rs
+│   ├── 03_strings/
+│   │   ├── ex01_basics.rs
+│   │   ├── ex02_chars.rs
+│   │   ├── ex03_manipulation.rs
+│   │   └── ex04_palindrome.rs
+│   ├── 04_stacks/
+│   │   ├── ex01_basics.rs
+│   │   ├── ex02_valid_parens.rs
+│   │   └── ex03_monotonic.rs
+│   ├── 05_queues/
+│   │   ├── ex01_basics.rs
+│   │   └── ex02_sliding_window.rs
+│   └── 06_leetcode/
+│       ├── lc001_two_sum.rs
+│       ├── lc020_valid_parentheses.rs
+│       ├── lc026_remove_duplicates.rs
+│       ├── lc121_best_time_stocks.rs
+│       └── lc217_contains_duplicate.rs
+└── solutions/                     # Reference implementations (opt-in)
+    └── (mirrors exercises/ structure)
 ```
 
 ---
@@ -188,7 +245,7 @@ mod tests {
 }
 ```
 
-The `todo!()` hint tells you the algorithm to reach for — not the answer. The tests tell you when you're done.
+The `todo!()` hint tells you the algorithm to reach for — not the answer. The runner shows this hint next to each failing function. The tests tell you when you're done.
 
 ---
 
@@ -207,20 +264,9 @@ The `todo!()` hint tells you the algorithm to reach for — not the answer. The 
 
 ---
 
-## Recommended Order
-
-Work through one module at a time before moving to the next:
-
-```
-vectors → hashmaps → strings → stacks → queues → leetcode
-```
-
-Each module's later exercises assume you've internalized the earlier ones. The LeetCode module is the checkpoint — if those feel natural, the foundations are solid.
-
----
-
 ## Stack
 
 - **Language:** Rust (edition 2024)
-- **Testing:** `cargo test` (built-in, no external dependencies)
-- **Dependencies:** none
+- **Runner:** `cargo run` — interactive, file-watching dashboard
+- **Testing:** `cargo test` — standard test suite
+- **Dependencies:** `notify` (file watching), `crossterm` (terminal UI)

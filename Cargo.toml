@@ -7,3 +7,5 @@ edition = "2024"
 solutions = []
 
 [dependencies]
+notify = "6"
+crossterm = "0.28"
