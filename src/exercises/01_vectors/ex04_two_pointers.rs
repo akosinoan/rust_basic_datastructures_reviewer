@@ -19,9 +19,7 @@
 // Reverse a slice in place using two pointers.
 // Do NOT use .reverse() — implement the swap loop yourself.
 pub fn reverse_in_place(v: &mut Vec<i32>) {
-    todo!(
-        "Use left and right pointers, swap v[left] and v[right], move them inward"
-    )
+    todo!("Use left and right pointers, swap v[left] and v[right], move them inward")
 }
 
 // --- Exercise 4b ---
@@ -38,9 +36,7 @@ pub fn two_sum_sorted(v: &[i32], target: i32) -> (usize, usize) {
 // The first k elements of the vec must be unique; the rest don't matter.
 // HINT: slow pointer tracks the write position; fast pointer scans ahead.
 pub fn remove_duplicates_in_place(v: &mut Vec<i32>) -> usize {
-    todo!(
-        "Use a slow pointer `k` that advances only when v[fast] != v[k-1]"
-    )
+    todo!("Use a slow pointer `k` that advances only when v[fast] != v[k-1]")
 }
 
 // --- Exercise 4d ---
@@ -74,7 +70,7 @@ mod tests {
     #[test]
     fn test_two_sum_sorted() {
         assert_eq!(two_sum_sorted(&[2, 7, 11, 15], 9), (0, 1));
-        assert_eq!(two_sum_sorted(&[1, 3, 4, 6], 7), (1, 2));
+        assert_eq!(two_sum_sorted(&[1, 3, 5, 6], 7), (0, 3));
         assert_eq!(two_sum_sorted(&[1, 2, 3, 4, 5], 9), (3, 4));
     }
 
