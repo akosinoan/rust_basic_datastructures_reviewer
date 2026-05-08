@@ -54,17 +54,22 @@ mod tests {
     #[test]
     fn test_range_sum() {
         let prefix = build_prefix_sum(&[1, 2, 3, 4, 5]);
-        assert_eq!(range_sum(&prefix, 0, 4), 15);
-        assert_eq!(range_sum(&prefix, 1, 3), 9);
-        assert_eq!(range_sum(&prefix, 2, 2), 3);
+        assert_eq!(range_sum(&prefix, 0, 4), 15); // whole array
+        assert_eq!(range_sum(&prefix, 1, 3), 9); // 2+3+4
+        assert_eq!(range_sum(&prefix, 2, 2), 3); // just 3
     }
 
     #[test]
     fn test_subarray_sum_exists() {
-        assert!(subarray_sum_exists(&[1, 2, 3], 5));
-        assert!(subarray_sum_exists(&[1, 2, 3], 6));
-        assert!(!subarray_sum_exists(&[1, 2, 3], 7));
-        assert!(subarray_sum_exists(&[3, 1, 4, 1, 5], 10));
+        assert!(subarray_sum_exists(&[1, 2, 3], 5)); // [2, 3]
+        assert!(subarray_sum_exists(&[1, 2, 3], 6)); // [1, 2, 3]
+        assert!(!subarray_sum_exists(&[1, 2, 3], 7)); // no subarray sums to 7
+        assert!(subarray_sum_exists(&[1, -1, 3], 0)); // [1, -1]
+        assert!(subarray_sum_exists(&[3, 4, -7, 1, 2], 0)); // [3, 4, -7]
+        assert!(!subarray_sum_exists(&[1, 2, -1, 4], 0)); // no zero-sum subarray exists
+        assert!(subarray_sum_exists(&[3, 1, 4, 1, 5], 10)); // [4, 1, 5]
+        assert!(subarray_sum_exists(&[-2, 3, -1, 4], 4)); // [3, -1, 4-1] etc — [-2,3,-1,4]=4
+        assert!(!subarray_sum_exists(&[1, 2, 3], 100));
     }
 
     #[test]

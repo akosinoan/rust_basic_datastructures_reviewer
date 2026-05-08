@@ -27,14 +27,15 @@ mod tests {
 
     #[test]
     fn test_last_element() {
-        assert_eq!(last_element(vec![10, 20, 30]), 30);
-        assert_eq!(last_element(vec![]), -1);
-        assert_eq!(last_element(vec![42]), 42);
+        let (v1, v2, v3) = (vec![10, 20, 30], vec![], vec![42]);
+        assert_eq!(last_element(&v1), 30);
+        assert_eq!(last_element(&v2), -1);
+        assert_eq!(last_element(&v3), 42);
     }
 
     #[test]
     fn test_safe_get() {
-        let v = vec![10, 20, 30];
+        let v: Vec<i32> = vec![10, 20, 30];
         assert_eq!(safe_get(&v, 0), Some(10));
         assert_eq!(safe_get(&v, 2), Some(30));
         assert_eq!(safe_get(&v, 5), None);

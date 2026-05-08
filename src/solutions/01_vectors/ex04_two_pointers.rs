@@ -71,7 +71,7 @@ mod tests {
     #[test]
     fn test_two_sum_sorted() {
         assert_eq!(two_sum_sorted(&[2, 7, 11, 15], 9), (0, 1));
-        assert_eq!(two_sum_sorted(&[1, 2, 5, 9], 7), (1, 2));
+        assert_eq!(two_sum_sorted(&[1, 3, 5, 6], 7), (0, 3));
         assert_eq!(two_sum_sorted(&[1, 2, 3, 4, 5], 9), (3, 4));
     }
 
@@ -85,7 +85,9 @@ mod tests {
 
     #[test]
     fn test_two_sum_unsorted_brute() {
-        assert_eq!(two_sum_unsorted_brute(&[2, 7, 11, 15], 9), (0, 1));
-        assert_eq!(two_sum_unsorted_brute(&[3, 2, 4], 6), (1, 2));
+        let r = two_sum_unsorted_brute(&[2, 7, 11, 15], 9);
+        assert_eq!(r, (0, 1));
+        let r2 = two_sum_unsorted_brute(&[3, 2, 4], 6);
+        assert_eq!(r2, (1, 2));
     }
 }

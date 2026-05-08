@@ -24,10 +24,7 @@ pub fn remove_duplicates(mut v: Vec<i32>) -> Vec<i32> {
 }
 
 pub fn max_window_sum(v: &[i32], k: usize) -> i32 {
-    v.windows(k)
-        .map(|w| w.iter().sum())
-        .max()
-        .unwrap_or(0)
+    v.windows(k).map(|w| w.iter().sum()).max().unwrap_or(0)
 }
 
 #[cfg(test)]
@@ -57,6 +54,8 @@ mod tests {
         let v = vec![1, 3, 5, 7, 9];
         assert!(binary_search(&v, 5));
         assert!(!binary_search(&v, 4));
+        assert!(binary_search(&v, 1));
+        assert!(!binary_search(&v, 10));
     }
 
     #[test]
