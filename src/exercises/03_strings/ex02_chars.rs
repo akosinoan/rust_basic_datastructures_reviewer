@@ -18,42 +18,81 @@
 //   c as u8 / c as u32              — char to number (ASCII)
 
 // --- Exercise 2a ---
-// Count the number of vowels (a, e, i, o, u, case insensitive).
+// Count vowels (a, e, i, o, u, case-insensitive) in `s`.
+//
+// Inputs:  s — borrowed &str.
+// Returns: usize count of vowel characters.
+//
+// Edge cases the tests check:
+//   - "hello world" → 3
+//   - "AEIOU"       → 5  (uppercase counts)
+//   - "rhythm"      → 0
+//   - ""            → 0
 pub fn count_vowels(s: &str) -> usize {
-    todo!("Iterate chars, check if it's in \"aeiouAEIOU\"")
+    todo!()
 }
 
 // --- Exercise 2b ---
-// Reverse a string (character by character, not byte by byte).
+// Reverse `s` character-by-character. Must produce a valid UTF-8 String even when
+// the input contains multi-byte characters (do not reverse bytes directly).
+//
+// Inputs:  s — borrowed &str.
+// Returns: String.
+//
+// Edge cases the tests check:
+//   - "hello" → "olleh"
+//   - "abcd"  → "dcba"
+//   - ""      → ""
+//   - "a"     → "a"
 pub fn reverse_string(s: &str) -> String {
-    todo!("Collect chars into a Vec, reverse it, collect back into String")
+    todo!()
 }
 
 // --- Exercise 2c ---
-// Return only the alphabetic characters (remove digits, spaces, punctuation).
+// Keep only the ALPHABETIC characters of `s`, dropping digits, whitespace,
+// punctuation, and any other non-letter.
+//
+// Inputs:  s — borrowed &str.
+// Returns: a new String of letters in original order.
+//
+// Edge cases the tests check:
+//   - "h3ll0 w0rld!" → "hllwrld"
+//   - "abc"          → "abc"
+//   - "123"          → ""
 pub fn letters_only(s: &str) -> String {
-    todo!("Filter chars by c.is_alphabetic()")
+    todo!()
 }
 
 // --- Exercise 2d ---
-// Caesar cipher: shift every letter by `n` positions in the alphabet.
-// Wrap around: 'z' + 1 = 'a'. Non-letter chars are unchanged.
-// Handle both uppercase and lowercase.
-// HINT: for lowercase: ((c as u8 - b'a' + n as u8) % 26 + b'a') as char
+// Caesar cipher: shift every alphabetic character by `n` positions (mod 26),
+// preserving case. Non-alphabetic characters pass through unchanged.
+//
+// Inputs:  s — borrowed &str; n — small unsigned shift (n is u8 in 0..255 but
+//          the meaningful shifts are mod 26).
+// Returns: a new String of the same length (in chars).
+//
+// Examples:
+//   caesar_cipher("abc", 3)            → "def"
+//   caesar_cipher("xyz", 3)            → "abc"  (wraparound)
+//   caesar_cipher("Hello, World!", 13) → "Uryyb, Jbeyq!"  (ROT13, punctuation untouched)
+//   caesar_cipher("abc", 0)            → "abc"
 pub fn caesar_cipher(s: &str, n: u8) -> String {
-    todo!(
-        "For each char: if lowercase, shift within a-z; \
-         if uppercase, shift within A-Z; else keep as-is."
-    )
+    todo!()
 }
 
 // --- Exercise 2e ---
-// Return true if two strings are equal ignoring case AND ignoring all whitespace.
+// Compare two strings ignoring case AND ignoring all whitespace.
+//
+// Inputs:  a, b — borrowed &str values.
+// Returns: bool — true iff after lowercasing both AND removing every whitespace
+//          char from both, the resulting strings are byte-equal.
+//
+// Edge cases the tests check:
+//   - "Hello World" vs "helloworld" → true
+//   - "  ABC  "     vs "abc"        → true
+//   - "hello"       vs "world"      → false
 pub fn loose_equal(a: &str, b: &str) -> bool {
-    todo!(
-        "Filter whitespace from both strings, lowercase both, then compare.\
-         HINT: filter(|c| !c.is_whitespace()).collect::<String>().to_lowercase()"
-    )
+    todo!()
 }
 
 #[cfg(test)]

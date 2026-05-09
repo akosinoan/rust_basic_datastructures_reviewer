@@ -4,28 +4,29 @@
 // Difficulty: Easy
 // ============================================================
 //
-// Given a sorted array, remove duplicates IN-PLACE so each element
-// appears only once. Return the count k of unique elements.
-// The first k elements of the modified array must be the unique values.
+// Given a SORTED array, remove duplicates IN-PLACE so each value appears
+// exactly once. Return the count k of unique values; the first k positions
+// of `nums` must hold those unique values in their original (sorted) order.
+// Whatever sits past index k is irrelevant — the LeetCode grader (and the
+// tests below) only inspect nums[..k].
 //
-// Example:
-//   [1,1,2] → k=2, array becomes [1,2,_]
-//   [0,0,1,1,1,2,2,3,3,4] → k=5, array becomes [0,1,2,3,4,_,_,_,_,_]
-//
-// ---------------------------------------------------------------
-// APPROACH: Two Pointers — O(n) time, O(1) space
-//
-// slow pointer k = write position (next slot for unique value)
-// fast pointer i scans through the array
-// When nums[i] != nums[k-1]: copy nums[i] to nums[k], increment k
-// ---------------------------------------------------------------
+// Examples:
+//   [1,1,2]                  → k=2, nums[..2] == [1,2]
+//   [0,0,1,1,1,2,2,3,3,4]    → k=5, nums[..5] == [0,1,2,3,4]
 
+// --- remove_duplicates ---
+// Inputs:  nums — exclusive reference to a sorted Vec<i32>.
+// Returns: i32 — the count k of unique values.
+//          You must compute k IN PLACE; aim for O(n) time, O(1) extra space.
+//
+// Edge cases the tests check:
+//   - [1,1,2]                  → k=2, nums[..2] == [1,2]
+//   - [0,0,1,1,1,2,2,3,3,4]    → k=5, nums[..5] == [0,1,2,3,4]
+//   - [7,7,7,7]                → k=1, nums[..1] == [7]
+//   - [1,2,3,4,5]              → k=5 (already unique)
+//   - []                       → k=0 (empty)
 pub fn remove_duplicates(nums: &mut Vec<i32>) -> i32 {
-    todo!(
-        "Handle empty case. Start k=1. For i in 1..nums.len():\
-         if nums[i] != nums[k-1], set nums[k] = nums[i] and k += 1.\
-         Return k as i32."
-    )
+    todo!()
 }
 
 #[cfg(test)]

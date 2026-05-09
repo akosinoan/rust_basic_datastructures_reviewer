@@ -13,38 +13,59 @@
 use std::collections::HashMap;
 
 // --- Exercise 3a ---
-// Increment the count for `key`. If not present, initialize to 1.
-// This is the single most important entry API pattern.
+// Increment the count stored under `key`. Initialize to 1 if `key` is not in the map yet.
+//
+// Inputs:  map — exclusive reference; key — &str to bump.
+// Returns: nothing. After N successive calls with the same key, map[key] == N.
+//
+// Edge cases the tests check:
+//   - first call on a fresh key            → value becomes 1
+//   - second call on same key              → value becomes 2
+//   - call on a different key (existing map) → that key starts at 1
 pub fn increment(map: &mut HashMap<String, i32>, key: &str) {
-    todo!("Use .entry().and_modify().or_insert() to increment or initialize")
+    todo!()
 }
 
 // --- Exercise 3b ---
-// For each number in `nums`, track the running sum keyed by "even" or "odd".
-// Return the map with two keys: "even" and "odd".
+// Sum every i32 in `nums`, bucketed by parity, into a HashMap<String, i32>.
+//
+// Inputs:  nums — borrowed slice of i32.
+// Returns: a HashMap with exactly two keys, "even" and "odd". Each value is
+//          the sum of all input numbers in that parity bucket.
+//
+// Example:
+//   nums = [1, 2, 3, 4, 5]
+//   → {"even": 2 + 4 = 6, "odd": 1 + 3 + 5 = 9}
 pub fn sum_by_parity(nums: &[i32]) -> HashMap<String, i32> {
-    todo!(
-        "For each num, if even add to map[\"even\"], else add to map[\"odd\"].\
-         Use entry().or_insert(0) then add."
-    )
+    todo!()
 }
 
 // --- Exercise 3c ---
-// Given a list of (student, score) pairs, keep only the HIGHEST score per student.
-// If a student appears multiple times, keep the max.
+// Given a list of (student, score) records, keep only the HIGHEST score per student.
+//
+// Inputs:  records — borrowed slice of (&str, i32). Students may appear multiple times.
+// Returns: HashMap<String, i32> mapping student name → max score seen.
+//
+// Edge cases the tests check:
+//   - [("alice",90),("bob",85),("alice",95),("bob",80)]
+//     → {"alice": 95, "bob": 85}
 pub fn highest_score(records: &[(&str, i32)]) -> HashMap<String, i32> {
-    todo!(
-        "Use entry().and_modify(|old| if score > *old {{ *old = score }}).or_insert(score)"
-    )
+    todo!()
 }
 
 // --- Exercise 3d ---
-// Given a sentence, return the first word that appears more than once.
-// Return None if all words are unique.
+// Return the FIRST word that occurs more than once in `sentence`, in scan order.
+//
+// Inputs:  sentence — &str split on whitespace into tokens.
+// Returns: Some(word) when one repeats, otherwise None.
+//          The "winner" is the word whose SECOND occurrence is earliest.
+//
+// Edge cases the tests check:
+//   - "the cat sat on the mat" → Some("the")
+//   - "one two three"          → None  (every word unique)
+//   - "hello hello world"      → Some("hello")
 pub fn first_repeated_word(sentence: &str) -> Option<String> {
-    todo!(
-        "Split on whitespace, count each word, return the first where count becomes 2"
-    )
+    todo!()
 }
 
 #[cfg(test)]

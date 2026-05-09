@@ -1,5 +1,7 @@
 use std::collections::HashMap;
 
+use super::catalog::{SECTIONS, Section};
+
 #[derive(Debug, Clone)]
 pub struct TestResult {
     pub passed: bool,
@@ -9,6 +11,18 @@ pub struct TestResult {
 pub type FileResults = HashMap<String, TestResult>;
 pub type ModuleResults = HashMap<String, FileResults>;
 pub type Results = HashMap<String, ModuleResults>;
+
+pub fn current_exercise(results: &Results) -> Option<(&'static Section, &'static str)> {
+    for section in SECTIONS {
+        let module_results = results.get(section.module);
+        if let Some(file) = section.exercises.iter().find(|file| {
+            !ExerciseStatus::from_file(module_results.and_then(|m| m.get(**file))).is_complete()
+        }) {
+            return Some((section, *file));
+        }
+    }
+    None
+}
 
 #[derive(Debug, Clone, Copy)]
 pub enum ExerciseStatus {

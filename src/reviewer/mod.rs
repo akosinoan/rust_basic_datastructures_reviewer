@@ -1,4 +1,5 @@
 pub mod catalog;
+pub mod hints;
 pub mod parser;
 pub mod render;
 pub mod results;

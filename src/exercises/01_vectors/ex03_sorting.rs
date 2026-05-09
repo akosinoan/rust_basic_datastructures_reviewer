@@ -11,44 +11,85 @@
 //   v.chunks(n)                — non-overlapping chunks of size n
 
 // --- Exercise 3a ---
-// Return the vec sorted in ascending order.
-// NOTE: you receive ownership, sort it, return it.
+// Sort `v` ascending and return it.
+//
+// Inputs:  v — an owned Vec<i32> (you may consume + mutate it).
+// Returns: the same vec, now in non-decreasing order.
+//
+// Edge cases the tests check:
+//   - random integers with duplicates → stable ascending order
 pub fn sort_asc(mut v: Vec<i32>) -> Vec<i32> {
-    todo!("Sort the vec in ascending order")
+    todo!()
 }
 
 // --- Exercise 3b ---
-// Return the vec sorted in descending order.
-// HINT: sort_by with b.cmp(a) reverses the order
+// Sort `v` DESCENDING (largest first) and return it.
+//
+// Inputs:  v — an owned Vec<i32>.
+// Returns: the same vec, now in non-increasing order.
+//
+// Edge cases the tests check:
+//   - duplicate values appear consecutively in the output
 pub fn sort_desc(mut v: Vec<i32>) -> Vec<i32> {
-    todo!("Sort the vec in descending order")
+    todo!()
 }
 
 // --- Exercise 3c ---
-// Sort a vec of strings by their length (shortest first).
+// Sort `v` by string LENGTH, shortest first.
+//
+// Inputs:  v — an owned Vec<String>.
+// Returns: same elements, ordered by .len() ascending. Tie-breaking order is unspecified.
+//
+// Edge cases the tests check:
+//   - test asserts result[0] is the shortest and result[2] is the longest
+//     (it does NOT pin tie-breaking, so any stable tie order is fine)
 pub fn sort_by_length(mut v: Vec<String>) -> Vec<String> {
-    todo!("Sort strings by length using sort_by_key")
+    todo!()
 }
 
 // --- Exercise 3d ---
-// Given a SORTED vec, return true if target exists using binary search.
-// HINT: binary_search returns Ok(index) if found, Err(_) if not
+// Return true if `target` exists in the SORTED slice `v`. Run in O(log n).
+//
+// Inputs:  v — a borrowed slice already sorted ascending; target — i32 to search for.
+// Returns: true if target appears at any index, false otherwise.
+//
+// Edge cases the tests check:
+//   - target in the middle / at edges → true
+//   - target between two existing values → false
+//   - target larger than every element  → false
 pub fn binary_search(v: &[i32], target: i32) -> bool {
-    todo!("Use v.binary_search(&target).is_ok()")
+    todo!()
 }
 
 // --- Exercise 3e ---
-// Return a vec with all duplicates removed. Order does not matter.
-// HINT: sort first, then dedup()
+// Return a Vec containing each distinct value of `v` exactly once.
+//
+// Inputs:  v — an owned Vec<i32> (you may sort/mutate it before returning).
+// Returns: a Vec<i32> with no duplicates. The test sorts your output before
+//          comparing, so the order of distinct values does not matter.
+//
+// Edge cases the tests check:
+//   - vec with duplicates → no element appears twice in the output
 pub fn remove_duplicates(mut v: Vec<i32>) -> Vec<i32> {
-    todo!("Sort then dedup to remove all duplicates")
+    todo!()
 }
 
 // --- Exercise 3f ---
-// Return the maximum sum of any contiguous subarray of size `k`.
-// HINT: use .windows(k) to iterate all windows of that size
+// Return the maximum sum of any CONTIGUOUS sub-slice of `v` of length exactly `k`.
+//
+// Inputs:  v — a borrowed slice of i32; k — positive window length, k <= v.len().
+// Returns: the largest sum found among all v.windows(k).
+//
+// Example:
+//   v = [1, 3, -1, -3, 5, 3, 6, 7], k = 3
+//   windows: [1,3,-1]=3, [3,-1,-3]=-1, [-1,-3,5]=1, [-3,5,3]=5, [5,3,6]=14, [3,6,7]=16
+//   answer:  16
+//
+// Edge cases the tests check:
+//   - window strictly inside the slice
+//   - k equals v.len()  → only one window, return its sum
 pub fn max_window_sum(v: &[i32], k: usize) -> i32 {
-    todo!("Use .windows(k) and find the max sum across all windows")
+    todo!()
 }
 
 #[cfg(test)]

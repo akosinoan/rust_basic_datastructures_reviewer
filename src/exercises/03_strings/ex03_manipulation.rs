@@ -13,51 +13,79 @@
 //   s.push('c')               — append a single char
 
 // --- Exercise 3a ---
-// Given a CSV line like "alice,30,engineer", split by comma and return the parts.
+// Split a single CSV-style line on commas.
+//
+// Inputs:  line — borrowed &str like "alice,30,engineer".
+// Returns: Vec<String> of the comma-separated fields, in order, owned.
+//
+// Edge cases the tests check:
+//   - "alice,30,engineer" → ["alice","30","engineer"]
+//   - "a"                 → ["a"]   (no commas → single field)
 pub fn split_csv(line: &str) -> Vec<String> {
-    todo!("Use .split(',').map(str::to_string).collect()")
+    todo!()
 }
 
 // --- Exercise 3b ---
-// Reverse the order of words in a sentence.
-// "hello world foo" → "foo world hello"
+// Reverse the WORD order of `s`. Words are separated by runs of whitespace.
+//
+// Inputs:  s — borrowed &str.
+// Returns: a String with the words in reverse order, separated by single spaces.
+//          Leading/trailing whitespace and runs of whitespace must NOT produce
+//          empty words; "  spaces  ahead  " has two words.
+//
+// Edge cases the tests check:
+//   - "hello world foo"     → "foo world hello"
+//   - "  spaces  ahead  "   → "ahead spaces"
+//   - "single"              → "single"
 pub fn reverse_words(s: &str) -> String {
-    todo!(
-        "Split on whitespace, collect into Vec, reverse, join with space.\
-         Trim the input first."
-    )
+    todo!()
 }
 
 // --- Exercise 3c ---
-// Convert a snake_case string to camelCase.
-// "hello_world_foo" → "helloWorldFoo"
-// HINT: split by '_', capitalize all parts except the first, then join
+// Convert snake_case to camelCase.
+//
+// Inputs:  s — borrowed &str of lowercase letters and underscores. The first
+//          run is lowercased; every subsequent run capitalizes its first char.
+// Returns: String. No underscores remain.
+//
+// Edge cases the tests check:
+//   - "hello_world"      → "helloWorld"
+//   - "foo_bar_baz"      → "fooBarBaz"
+//   - "simple" (no '_')  → "simple"
 pub fn snake_to_camel(s: &str) -> String {
-    todo!(
-        "Split on '_', take first part as-is, capitalize the rest,\
-         then concatenate all parts."
-    )
+    todo!()
 }
 
 // --- Exercise 3d ---
-// Return the longest common prefix of a list of strings.
-// If none, return "".
-// HINT: start with the first string, shrink it until all strings start with it.
+// Longest common prefix of every string in `strs`.
+//
+// Inputs:  strs — borrowed slice of &str (input is non-empty for the asserts).
+// Returns: a String containing the longest prefix that every input string
+//          starts with. Empty if there is no common starting character.
+//
+// Edge cases the tests check:
+//   - ["flower","flow","flight"]                     → "fl"
+//   - ["dog","racecar","car"]                        → ""    (no common start)
+//   - ["interview","interact","interface"]           → "inter"
+//   - ["abc"]                                        → "abc" (single string is the prefix)
 pub fn longest_common_prefix(strs: &[&str]) -> String {
-    todo!(
-        "Take strs[0] as prefix. For each other string, shrink prefix\
-         while !string.starts_with(prefix)."
-    )
+    todo!()
 }
 
 // --- Exercise 3e ---
-// Run-length encoding: compress "aaabbbccddddee" → "3a3b2c4d2e".
-// For a single char (count=1), still include the count: "a" → "1a".
+// Run-length encode `s`: each maximal run of one character becomes <count><char>.
+// Counts of 1 are NOT omitted ("a" → "1a"), so the encoding is fully reversible.
+//
+// Inputs:  s — borrowed &str.
+// Returns: String such that "aaabbcc" → "3a2b2c", "abcd" → "1a1b1c1d", "" → "".
+//
+// Edge cases the tests check:
+//   - "aaabbcc" → "3a2b2c"
+//   - "abcd"    → "1a1b1c1d"
+//   - ""        → ""
+//   - "aaaa"    → "4a"
 pub fn run_length_encode(s: &str) -> String {
-    todo!(
-        "Walk through chars with a counter. When the char changes,\
-         push the count and char to the result, then reset."
-    )
+    todo!()
 }
 
 #[cfg(test)]
@@ -94,7 +122,7 @@ mod tests {
 
     #[test]
     fn test_run_length_encode() {
-        assert_eq!(run_length_encode("aaabbbcc"), "3a3b2c");
+        assert_eq!(run_length_encode("aaabbcc"), "3a2b2c");
         assert_eq!(run_length_encode("abcd"), "1a1b1c1d");
         assert_eq!(run_length_encode(""), "");
         assert_eq!(run_length_encode("aaaa"), "4a");

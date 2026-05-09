@@ -13,42 +13,73 @@ pub struct WordCounter {
 }
 
 impl WordCounter {
-    // Create an empty WordCounter.
+    // Construct a fresh empty WordCounter.
+    //
+    // Returns: a WordCounter whose internal counts map is empty.
     pub fn new() -> Self {
-        todo!("Return WordCounter with an empty HashMap")
+        todo!()
     }
 
-    // Record one occurrence of a single word (lowercase it first).
-    // HINT: self.counts.entry(...).or_insert(0) += 1
+    // Record one occurrence of a single word.
+    //
+    // Inputs:  word — &str. Treat it case-insensitively (normalise before counting).
+    // Returns: nothing. After three calls with "Hello"/"HELLO"/"hello",
+    //          self.count("hello") must be 3.
     pub fn add_word(&mut self, word: &str) {
-        todo!("Normalize to lowercase, then increment via entry API")
+        todo!()
     }
 
-    // Split text on whitespace and call add_word for each token.
+    // Split `text` on whitespace and add_word every token.
+    //
+    // Inputs:  text — &str of zero or more whitespace-separated words.
+    // Returns: nothing.
     pub fn add_text(&mut self, text: &str) {
-        todo!("split_whitespace().for_each(|w| self.add_word(w))")
+        todo!()
     }
 
-    // Return how many times this word has been seen (0 if never).
+    // Look up how many times `word` has been seen (case-insensitive).
+    //
+    // Inputs:  word — &str.
+    // Returns: 0 if never seen, else the recorded count.
     pub fn count(&self, word: &str) -> usize {
-        todo!("Look up the lowercased word, return 0 if absent")
+        todo!()
     }
 
-    // Return the word with the highest count, or None if empty.
-    // Ties are fine — return any winner.
-    // HINT: self.counts.iter().max_by_key(|(_, &v)| v)
+    // Return the word with the highest count, or None if no words have been recorded.
+    //
+    // Returns: Option<&str> referring into the internal storage. Ties may resolve
+    //          to any of the tied winners.
+    //
+    // Edge cases the tests check:
+    //   - empty            → None
+    //   - clear winner     → Some(that word)
     pub fn most_frequent(&self) -> Option<&str> {
-        todo!("max_by_key on values, return the key as &str")
+        todo!()
     }
 
-    // Return all words whose count equals exactly n, sorted alphabetically.
+    // Return every recorded word whose count equals exactly `n`, sorted alphabetically.
+    //
+    // Inputs:  n — required count, usize.
+    // Returns: Vec<String> of matching words in lexicographic order.
+    //
+    // Edge cases the tests check:
+    //   - empty counter → empty vec (typed Vec<String>)
+    //   - multiple words tied at count n → all of them, in alphabetical order
     pub fn words_with_count(&self, n: usize) -> Vec<String> {
-        todo!("filter counts == n, collect keys, sort")
+        todo!()
     }
 
-    // Return words that appear in both self and other, sorted alphabetically.
+    // Return every word that exists in BOTH `self` and `other`, sorted alphabetically.
+    //
+    // Inputs:  other — &WordCounter, treated as a second multiset of words.
+    // Returns: Vec<String> of words present in both, in lexicographic order.
+    //          Counts are ignored — only key membership matters.
+    //
+    // Edge cases the tests check:
+    //   - both have ("rust","python") in common → ["python","rust"]
+    //   - one is empty                          → []
     pub fn intersection(&self, other: &WordCounter) -> Vec<String> {
-        todo!("keys present in both self.counts and other.counts, sorted")
+        todo!()
     }
 }
 

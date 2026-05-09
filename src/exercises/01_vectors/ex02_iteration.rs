@@ -14,38 +14,70 @@
 //   .position(|x| ...) — index of first match (Option<usize>)
 
 // --- Exercise 2a ---
-// Return the sum of all elements.
-// HINT: .iter().sum::<i32>()
+// Return the sum of every element in `v`.
+//
+// Inputs:  v — a borrowed slice of i32.
+// Returns: the integer total of all elements.
+//
+// Edge cases the tests check:
+//   - several positives        → ordinary sum
+//   - empty slice              → 0
+//   - mix of positive/negative → values cancel correctly (e.g. [-1, 1] → 0)
 pub fn sum(v: &[i32]) -> i32 {
-    todo!("Sum all elements using an iterator")
+    todo!()
 }
 
 // --- Exercise 2b ---
-// Return a new vec with every element doubled.
-// HINT: .iter().map(|&x| x * 2).collect()
+// Return a NEW Vec where every element of `v` is doubled.
+//
+// Inputs:  v — a borrowed slice of i32 (left untouched).
+// Returns: Vec<i32> of the same length with each value multiplied by 2.
+//
+// Edge cases the tests check:
+//   - non-empty slice → element-wise double
+//   - empty slice     → empty vec
 pub fn double_all(v: &[i32]) -> Vec<i32> {
-    todo!("Map each element to its double")
+    todo!()
 }
 
 // --- Exercise 2c ---
-// Return only the even numbers from the slice.
+// Return only the EVEN values from `v`, preserving order.
+//
+// Inputs:  v — a borrowed slice of i32.
+// Returns: Vec<i32> containing exactly the elements x where x % 2 == 0.
+//
+// Edge cases the tests check:
+//   - mixed even and odd values → only the evens, in original order
+//   - all odd values            → empty vec
 pub fn keep_evens(v: &[i32]) -> Vec<i32> {
-    todo!("Filter elements where x % 2 == 0")
+    todo!()
 }
 
 // --- Exercise 2d ---
-// Return the index of the first negative number, or None.
-// HINT: .iter().position(|&x| ...)
+// Return the index of the FIRST negative number in `v`, or None if there is none.
+//
+// Inputs:  v — a borrowed slice of i32.
+// Returns: Some(i) where i is the smallest index with v[i] < 0, else None.
+//
+// Edge cases the tests check:
+//   - first negative is in the middle  → that index
+//   - all elements non-negative        → None
+//   - the very first element is negative → Some(0)
 pub fn first_negative_index(v: &[i32]) -> Option<usize> {
-    todo!("Find position of first element < 0")
+    todo!()
 }
 
 // --- Exercise 2e ---
-// Given a vec of strings, concatenate them all into one String.
-// HINT: .iter().map(|s| s.as_str()).collect::<Vec<_>>().join("")
-//       OR fold/for loop
+// Concatenate every String in `v` into one new String, in order, with no separator.
+//
+// Inputs:  v — a borrowed slice of String.
+// Returns: a single String formed by joining every element back-to-back.
+//
+// Edge cases the tests check:
+//   - ["foo","bar","baz"] → "foobarbaz"
+//   - empty slice         → ""
 pub fn concat_all(v: &[String]) -> String {
-    todo!("Concatenate all strings into one")
+    todo!()
 }
 
 #[cfg(test)]

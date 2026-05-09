@@ -5,34 +5,56 @@
 // ============================================================
 //
 // Given an integer array, return true if any value appears
-// at least twice. Return false if all elements are distinct.
+// at least twice. Return false if every element is distinct.
 //
 // Example:
 //   [1,2,3,1] → true
 //   [1,2,3,4] → false
 //
-// ---------------------------------------------------------------
-// THREE APPROACHES — implement all three to compare:
+// Three approaches are exercised, in increasing order of efficiency.
+// You implement all three so you can compare them — the tests treat
+// them as separate functions.
+//   1. Brute force      O(n²) time, O(1) space
+//   2. Sort + scan      O(n log n) time, O(1) extra space (sort in place)
+//   3. HashSet (best)   O(n) time, O(n) space
+
+// --- contains_duplicate_brute ---
+// O(n²) brute force.
 //
-// 1. Brute Force    O(n²) time, O(1) space — nested loops
-// 2. Sort           O(n log n) time, O(1) space — adjacent duplicates
-// 3. HashSet        O(n) time, O(n) space — fastest
-// ---------------------------------------------------------------
-
-// Approach 1: Brute force
+// Inputs:  nums — borrowed slice.
+// Returns: true iff any pair of distinct positions holds equal values.
+//
+// Edge cases the tests check:
+//   - [1,2,3,1] → true
+//   - [1,2,3,4] → false
+//   - [1]       → false (a single element can't duplicate itself)
 pub fn contains_duplicate_brute(nums: &[i32]) -> bool {
-    todo!("Two nested loops, compare every pair")
+    todo!()
 }
 
-// Approach 2: Sort then check adjacent
+// --- contains_duplicate_sort ---
+// O(n log n) approach: sort, then look for adjacent equal values.
+//
+// Inputs:  nums — owned Vec<i32> (you may sort it in place).
+// Returns: true iff any duplicate exists in nums.
+//
+// Edge cases the tests check:
+//   - [1,2,3,1] sorted → adjacent dupes → true
+//   - [1,2,3,4]        → false
+//   - long list with duplicates anywhere → true
 pub fn contains_duplicate_sort(mut nums: Vec<i32>) -> bool {
-    todo!("Sort nums, then check if any adjacent pair is equal using .windows(2)")
+    todo!()
 }
 
-// Approach 3: HashSet (optimal)
+// --- contains_duplicate ---
+// O(n) optimal approach using a hash-based set.
+//
+// Inputs:  nums — owned Vec<i32>.
+// Returns: true iff any duplicate exists.
+//
+// Edge cases the tests check (same shape as the other two approaches).
 pub fn contains_duplicate(nums: Vec<i32>) -> bool {
-    use std::collections::HashSet;
-    todo!("Insert each element; if insert returns false (already present), return true")
+    todo!()
 }
 
 #[cfg(test)]

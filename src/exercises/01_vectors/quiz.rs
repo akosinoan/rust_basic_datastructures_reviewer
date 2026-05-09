@@ -12,45 +12,80 @@ pub struct RunningStats {
 }
 
 impl RunningStats {
-    // Create an empty RunningStats.
+    // Construct a fresh RunningStats with an empty dataset.
+    //
+    // Returns: RunningStats whose internal Vec is empty (len == 0).
     pub fn new() -> Self {
-        todo!("Return RunningStats with an empty Vec")
+        todo!()
     }
 
-    // Append a value to the dataset.
+    // Append `val` to the dataset.
+    //
+    // Inputs:  val — any i32 (positive, zero, or negative).
+    // Returns: nothing. After the call, the new value is the last element.
     pub fn push(&mut self, val: i32) {
-        todo!("Push val onto self.data")
+        todo!()
     }
 
-    // Smallest value, or None if empty.
+    // Smallest value in the dataset.
+    //
+    // Returns: Some(min) if the dataset has at least one element, else None.
+    //
+    // Edge cases the tests check:
+    //   - empty             → None
+    //   - single value      → Some(that value)
+    //   - many values       → the minimum (test hits both positive and negative inputs)
     pub fn min(&self) -> Option<i32> {
-        todo!("self.data.iter().min() — copy the i32 out")
+        todo!()
     }
 
-    // Largest value, or None if empty.
+    // Largest value in the dataset.
+    //
+    // Returns: Some(max) if the dataset has at least one element, else None.
     pub fn max(&self) -> Option<i32> {
-        todo!("self.data.iter().max() — copy the i32 out")
+        todo!()
     }
 
-    // Arithmetic mean as f64, or None if empty.
-    // HINT: sum as i64 first to avoid overflow, then divide by len as f64
+    // Arithmetic mean as f64.
+    //
+    // Returns: Some(sum / len) if len > 0, else None.
+    //          Watch out for integer division; cast carefully so 1.5 stays 1.5
+    //          and so a sum of large i32 values does not overflow i32.
+    //
+    // Edge cases the tests check:
+    //   - empty             → None
+    //   - whole-number mean → e.g. [1,2,3,4,5] → Some(3.0)
+    //   - non-integer mean  → e.g. [1,2]       → Some(1.5)
     pub fn mean(&self) -> Option<f64> {
-        todo!("sum / len — watch out for integer division")
+        todo!()
     }
 
-    // Middle value of the sorted dataset.
-    // Even length  → average of the two middle elements.
-    // Odd length   → the single middle element.
-    // HINT: clone and sort self.data, then index into the middle
+    // Median of the dataset, as f64.
+    //
+    // Returns: Some(median) when len > 0, else None.
+    //          Odd length  → the single middle element after sorting.
+    //          Even length → average of the two middle elements after sorting.
+    //          Do NOT mutate self.data — operate on a clone.
+    //
+    // Edge cases the tests check:
+    //   - odd length     → e.g. [5,1,3] → Some(3.0)
+    //   - even length    → e.g. [1,2,3,4] → Some(2.5)
+    //   - negatives      → still works, e.g. [-5,-1,-3] sorted is [-5,-3,-1] → Some(-3.0)
     pub fn median(&self) -> Option<f64> {
-        todo!("sort a clone, return mid element (or avg of two mids)")
+        todo!()
     }
 
-    // Most frequently occurring value, or None if empty.
-    // Ties are fine — return any of the tied values.
-    // HINT: build a HashMap<i32,usize> frequency map, then max_by_key
+    // Most frequently occurring value (the "mode").
+    //
+    // Returns: Some(value) if len > 0, else None.
+    //          If multiple values are tied for the highest count, returning
+    //          any of them is acceptable.
+    //
+    // Edge cases the tests check:
+    //   - [1,2,2,3,3,3] → Some(3)
+    //   - single value  → that value
     pub fn mode(&self) -> Option<i32> {
-        todo!("frequency map → find key with highest count")
+        todo!()
     }
 }
 

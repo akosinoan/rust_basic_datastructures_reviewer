@@ -13,9 +13,8 @@ pub const HEADER_BOTTOM: &str =
     "└──────────────────────────────────────────────────────────────┘";
 
 pub const FOOTER: &str =
-    "Watching src/exercises/ · save a file to re-run · Ctrl+C to quit";
+    "save to re-run · type 'hint' for help · Ctrl+C to quit";
 
-pub const POLL_INTERVAL_MS: u64 = 100;
 pub const DEBOUNCE_MS: u64 = 300;
 
 pub fn progress_bar(done: usize, total: usize) -> String {

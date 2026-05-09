@@ -13,41 +13,49 @@
 //              "largest rectangle in histogram"
 
 // --- Exercise 3a ---
-// For each element, find the next GREATER element to its right.
-// If none exists, use -1.
-// Example: [2, 1, 2, 4, 3] → [4, 2, 4, -1, -1]
+// Next-greater-element: for each index i, find the FIRST index j > i with
+// nums[j] > nums[i]. Return -1 when no such j exists.
+//
+// Inputs:  nums — borrowed slice of i32.
+// Returns: Vec<i32> of the same length as nums. Aim for O(n).
+//
+// Examples:
+//   [2, 1, 2, 4, 3] → [4, 2, 4, -1, -1]
+//   [1, 2, 3, 4]    → [2, 3, 4, -1]
+//   [4, 3, 2, 1]    → [-1, -1, -1, -1]
 pub fn next_greater_element(nums: &[i32]) -> Vec<i32> {
-    todo!(
-        "Init result vec with -1s. Use a stack of indices.\
-         For each i, while stack top's value < nums[i], pop and set result[popped] = nums[i].\
-         Then push i."
-    )
+    todo!()
 }
 
 // --- Exercise 3b ---
-// LeetCode #739: Daily Temperatures.
-// Return an array where result[i] = days until a warmer temperature.
-// If no warmer day, result[i] = 0.
-// Example: [73,74,75,71,69,72,76,73] → [1,1,4,2,1,1,0,0]
+// LeetCode #739. For each day, how many days until a strictly warmer one?
+//
+// Inputs:  temps — borrowed slice of daily temperatures.
+// Returns: Vec<i32> where result[i] is the number of days you must wait after
+//          day i for a warmer temperature, or 0 if no future day is warmer.
+//
+// Examples:
+//   [73,74,75,71,69,72,76,73] → [1,1,4,2,1,1,0,0]
+//   [30,40,50,60]             → [1,1,1,0]
+//   [30,60,90]                → [1,1,0]
 pub fn daily_temperatures(temps: &[i32]) -> Vec<i32> {
-    todo!(
-        "Same pattern as next_greater_element but track indices.\
-         result[popped_index] = current_index - popped_index"
-    )
+    todo!()
 }
 
 // --- Exercise 3c ---
-// LeetCode #84: Largest Rectangle in Histogram.
-// Given bar heights, find the area of the largest rectangle.
-// Example: [2,1,5,6,2,3] → 10
-// HINT: monotonic increasing stack. When a bar is shorter than the top,
-//       pop and compute area using the popped height and current width.
+// LeetCode #84. Largest rectangle in a histogram of bar heights.
+//
+// Inputs:  heights — borrowed slice of i32 ≥ 0. Each entry is one bar of width 1.
+// Returns: i32 — the area of the largest axis-aligned rectangle that fits
+//          inside the histogram. Aim for O(n).
+//
+// Examples:
+//   [2, 1, 5, 6, 2, 3] → 10   (the 5×2 block from indices 2..=3)
+//   [2, 4]             → 4
+//   [1, 1, 1, 1]       → 4
+//   [5]                → 5
 pub fn largest_rectangle_in_histogram(heights: &[i32]) -> i32 {
-    todo!(
-        "Use a stack of indices. Push if heights[i] >= stack top's height.\
-         When heights[i] < top: pop, compute area = height * (i - stack.last() - 1).\
-         After the loop, drain remaining stack elements."
-    )
+    todo!()
 }
 
 #[cfg(test)]

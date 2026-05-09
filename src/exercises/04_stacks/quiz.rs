@@ -6,44 +6,57 @@
 // from this section.
 
 // --- Quiz 4a ---
-// Evaluate a Reverse Polish Notation (RPN) expression.
+// Evaluate a Reverse Polish Notation (RPN) expression and return its value.
 //
-// Tokens are either integer strings ("3", "-7") or operators ("+","-","*","/").
-// For each token:
-//   • number  → parse and push onto the stack
-//   • operator → pop b then a, push (a op b)
-// Integer division truncates toward zero (Rust's default `/`).
-// Guaranteed: valid expression, exactly one value remains at the end.
+// Inputs:  tokens — borrowed slice of &str. Each token is either:
+//                  - an integer string ("3", "-7"), or
+//                  - one of "+", "-", "*", "/".
+//          Integer division truncates toward zero (Rust's default for i32 `/`).
+//          Inputs are guaranteed valid; exactly one value remains at the end.
+// Returns: i32.
 //
-// HINT: use a Vec<i32> as the stack; parse integers with .parse::<i32>().unwrap()
+// Examples:
+//   ["2","3","+"]                       → 5
+//   ["10","3","-"]                      → 7
+//   ["6","2","/"]                       → 3
+//   ["7","2","/"]                       → 3   (truncates toward zero)
+//   ["-3","4","+"]                      → 1   (negative operand)
+//   ["5","1","2","+","4","*","+","3","-"] → 14
 pub fn eval_rpn(tokens: &[&str]) -> i32 {
-    todo!("stack-based RPN evaluation")
+    todo!()
 }
 
 // --- Quiz 4b ---
-// Return the minimum number of bracket insertions needed to make s valid.
+// Minimum number of bracket insertions needed to make `s` valid.
+// Only '(' and ')' appear.
 //
-// A valid bracket string has matching '(' for every ')' and vice-versa.
-// HINT: track `open` (unmatched '(') and `close` (unmatched ')') counters.
-//   For '(': open += 1
-//   For ')': if open > 0 { open -= 1 } else { close += 1 }
-// Answer is open + close.
+// Inputs:  s — borrowed &str.
+// Returns: usize — the count.
+//
+// Examples:
+//   "()", "(())", "()()"      → 0   (already valid)
+//   "(("                      → 2   (two '(' need ')')
+//   "(()"                     → 1
+//   "))"                      → 2
+//   "())"                     → 1
+//   ")("                      → 2   (')' unmatched + '(' unmatched)
 pub fn min_brackets_to_add(s: &str) -> usize {
-    todo!("count unmatched '(' and ')' using two counters")
+    todo!()
 }
 
 // --- Quiz 4c ---
-// For each element, find the next element to its right that is strictly greater.
-// If none exists, use -1.
+// Next-greater-element to the right (strictly greater). Return -1 if none.
 //
-// Example: [2, 1, 3, 5, 4] → [3, 3, 5, -1, -1]
+// Inputs:  nums — borrowed slice of i32.
+// Returns: Vec<i32> of the same length as nums. Aim for O(n).
 //
-// HINT: monotonic stack stores indices.
-//   Iterate left-to-right. While the stack's top index points to a value
-//   less than nums[i], pop it and set result[popped] = nums[i].
-//   Push i. After the loop, remaining indices get -1.
+// Examples:
+//   [2, 1, 3, 5, 4] → [3, 3, 5, -1, -1]
+//   [5, 4, 3, 2, 1] → [-1, -1, -1, -1, -1]
+//   [1, 2, 3, 4]    → [2, 3, 4, -1]
+//   [7]             → [-1]
 pub fn next_greater_element(nums: &[i32]) -> Vec<i32> {
-    todo!("monotonic stack of indices, fill result as you pop")
+    todo!()
 }
 
 #[cfg(test)]
