@@ -26,11 +26,7 @@
 //   - 2-element vec [1,2]      → [2,1]
 //   - single element           → unchanged
 pub fn reverse_in_place(v: &mut Vec<i32>) {
-<<<<<<< HEAD
-    todo!("Use left and right pointers, swap v[left] and v[right], move them inward")
-=======
     todo!()
->>>>>>> 4f7c43a (explained the exercises better and added hint feature)
 }
 
 // --- Exercise 4b ---
@@ -60,11 +56,7 @@ pub fn two_sum_sorted(v: &[i32], target: i32) -> (usize, usize) {
 // Edge cases the tests check:
 //   - input [1,1,2,3,3,4] → k = 4, v[..4] == [1,2,3,4]
 pub fn remove_duplicates_in_place(v: &mut Vec<i32>) -> usize {
-<<<<<<< HEAD
-    todo!("Use a slow pointer `k` that advances only when v[fast] != v[k-1]")
-=======
     todo!()
->>>>>>> 4f7c43a (explained the exercises better and added hint feature)
 }
 
 // --- Exercise 4d ---

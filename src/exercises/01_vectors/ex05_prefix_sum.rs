@@ -96,7 +96,6 @@ mod tests {
 
     #[test]
     fn test_subarray_sum_exists() {
-<<<<<<< HEAD
         assert!(subarray_sum_exists(&[1, 2, 3], 5)); // [2, 3]
         assert!(subarray_sum_exists(&[1, 2, 3], 6)); // [1, 2, 3]
         assert!(!subarray_sum_exists(&[1, 2, 3], 7)); // no subarray sums to 7
@@ -106,13 +105,6 @@ mod tests {
         assert!(subarray_sum_exists(&[3, 1, 4, 1, 5], 10)); // [4, 1, 5]
         assert!(subarray_sum_exists(&[-2, 3, -1, 4], 4)); // [3, -1, 4-1] etc — [-2,3,-1,4]=4
         assert!(!subarray_sum_exists(&[1, 2, 3], 100));
-=======
-        assert!(subarray_sum_exists(&[1, 2, 3], 5));       // [2,3]
-        assert!(subarray_sum_exists(&[1, 2, 3], 6));       // [1,2,3]
-        assert!(!subarray_sum_exists(&[1, 2, 3], 7));
-        assert!(subarray_sum_exists(&[-1, 2, 3, -2], 0));
-        assert!(subarray_sum_exists(&[3, 1, 4, 1, 5], 10)); // [4,1,5]
->>>>>>> 4f7c43a (explained the exercises better and added hint feature)
     }
 
     #[test]
