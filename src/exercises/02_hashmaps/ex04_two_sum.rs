@@ -11,45 +11,66 @@
 // Key insight: we're trading space for time. Instead of searching
 // the array for the complement, we look it up in O(1).
 
-use std::collections::HashMap;
-
 // --- Exercise 4a ---
-// Return the two indices that add up to target.
-// Each input has exactly one solution. You may not use the same element twice.
+// Find the indices of the two distinct elements of `nums` that sum to `target`.
+//
+// Inputs:  nums — borrowed slice; target — desired sum.
+//          Exactly one solution is guaranteed; you may NOT use the same element twice.
+// Returns: (i, j) with i < j and nums[i] + nums[j] == target.
+//          Aim for O(n) time.
+//
+// Edge cases the tests check:
+//   - [2,7,11,15] target 9 → (0,1)
+//   - [3,2,4]     target 6 → (1,2)
+//   - [3,3]       target 6 → (0,1)  (two distinct positions, same value — this is allowed)
 pub fn two_sum(nums: &[i32], target: i32) -> (usize, usize) {
-    todo!(
-        "Iterate with index, compute complement = target - nums[i],\
-         check the map, then insert nums[i] -> i into the map"
-    )
+    todo!()
 }
 
 // --- Exercise 4b ---
-// Return TRUE if any two distinct elements sum to target.
-// (Like two_sum but only needs a boolean.)
+// Return true iff some pair of DISTINCT positions in `nums` sums to `target`.
+//
+// Inputs:  nums — borrowed slice; target — desired sum.
+// Returns: bool. Aim for O(n) time.
+//
+// Edge cases the tests check:
+//   - [1,2,3,4] target 5 → true (1+4 or 2+3)
+//   - [1,2,3,4] target 8 → false
+//   - [0,0]     target 0 → true (two distinct positions)
 pub fn has_pair_with_sum(nums: &[i32], target: i32) -> bool {
-    todo!("Same approach as two_sum but just return bool")
+    todo!()
 }
 
 // --- Exercise 4c ---
-// Return all unique pairs (a, b) where a < b and a + b == target.
-// Each pair should appear only once.
+// Return every UNIQUE pair (a, b) with a < b and a + b == target.
+//
+// Inputs:  nums — borrowed slice; target — desired sum.
+// Returns: Vec<(i32, i32)>. Each pair appears only once; within each pair the
+//          smaller value comes first. Output order does not matter — tests sort it.
+//
+// Edge cases the tests check:
+//   - [1,2,3,4,5] target 6 → sorts to [(1,5),(2,4)]
+//   - [1,2,3]     target 10 → []
 pub fn all_pairs_with_sum(nums: &[i32], target: i32) -> Vec<(i32, i32)> {
-    todo!(
-        "Use a HashSet to track seen numbers. For each num, check if (target-num)\
-         is already in the set. Collect as (min, max) tuples to avoid duplicates."
-    )
+    todo!()
 }
 
 // --- Exercise 4d ---
-// Three Sum: find all unique triplets that sum to zero.
-// Hint: sort the array, fix one element, then use two pointers for the remaining pair.
-// This combines sorting + two pointers + HashMap deduplication.
+// Three-Sum: every unique TRIPLET (a, b, c) of values from `nums` (using each
+// position at most once) such that a + b + c == 0.
+//
+// Inputs:  nums — exclusive reference; you are free to sort it.
+// Returns: Vec<Vec<i32>>. Each inner Vec is exactly 3 sorted ascending values.
+//          No duplicate triplets: if [-1,-1,2] appears, it appears once. The
+//          tests sort the outer Vec before comparing.
+//
+// Edge cases the tests check:
+//   - [-1,0,1,2,-1,-4] (sorted to [-4,-1,-1,0,1,2])
+//     → triplets sorted: [[-1,-1,2], [-1,0,1]]
+//   - [0,0,0]   → [[0,0,0]]
+//   - [1,2,3]   → []
 pub fn three_sum(nums: &mut Vec<i32>) -> Vec<Vec<i32>> {
-    todo!(
-        "Sort nums. For each i, use two pointers left=i+1, right=end.\
-         Skip duplicates by checking if nums[i] == nums[i-1].\
-         If sum < 0 move left right, if sum > 0 move right left, else record and skip dupes."
-    )
+    todo!()
 }
 
 #[cfg(test)]

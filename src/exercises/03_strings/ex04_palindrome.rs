@@ -7,29 +7,53 @@
 // ignore case and non-alphanumeric characters. LeetCode does this.
 
 // --- Exercise 4a ---
-// Return true if the string is a palindrome (exact match, case-sensitive).
+// Strict palindrome check (case-sensitive, every character counts).
+//
+// Inputs:  s — borrowed &str.
+// Returns: true iff s.chars() reads the same forwards and backwards.
+//
+// Edge cases the tests check:
+//   - "racecar" → true
+//   - "madam"   → true
+//   - ""        → true (empty is a palindrome)
+//   - "a"       → true (single char is a palindrome)
+//   - "hello"   → false
+//   - "Racecar" → false (case-sensitive: 'R' ≠ 'r')
 pub fn is_palindrome_exact(s: &str) -> bool {
-    todo!(
-        "Collect to Vec<char>. Use two pointers (left, right).\
-         While left < right: if chars differ, return false."
-    )
+    todo!()
 }
 
 // --- Exercise 4b ---
-// Return true if the string is a palindrome ignoring case and non-alphanumeric chars.
-// This is LeetCode #125.
+// LeetCode #125: palindrome ignoring case AND non-alphanumeric characters.
+//
+// Inputs:  s — borrowed &str (may contain spaces, punctuation, mixed case).
+// Returns: true iff after filtering to alphanumeric chars and lowercasing,
+//          the result is a palindrome.
+//
+// Edge cases the tests check:
+//   - "A man, a plan, a canal: Panama" → true
+//   - "race a car"                     → false
+//   - ""                               → true
+//   - " " (a single space)             → true (filters to empty → palindrome)
 pub fn is_palindrome_lc(s: &str) -> bool {
-    todo!(
-        "Filter to only alphanumeric chars using c.is_alphanumeric(),\
-         lowercase, collect to Vec<char>, then two-pointer check."
-    )
+    todo!()
 }
 
 // --- Exercise 4c ---
-// Return true if the string is a palindrome after removing AT MOST one character.
-// This is LeetCode #680.
-// HINT: two pointers. If chars match, move both. If they don't,
-//       try removing the left char OR the right char and check if either substring is a palindrome.
+// LeetCode #680: palindrome after AT MOST one character deletion.
+//
+// Inputs:  s — borrowed &str.
+// Returns: true iff s is already a palindrome OR becomes one after removing
+//          exactly one character at any position.
+//
+// A small helper `check` is provided. Use it with two index ranges (skip the left
+// or skip the right) the moment your two pointers find a mismatch.
+//
+// Edge cases the tests check:
+//   - "aba"      → true (already palindrome)
+//   - "abca"     → true (remove 'c' → "aba")
+//   - "abc"      → false
+//   - "raceacar" → true (remove the first 'a' → "racecar")
 pub fn is_palindrome_one_deletion(s: &str) -> bool {
     fn check(chars: &[char], mut l: usize, mut r: usize) -> bool {
         while l < r {
@@ -42,23 +66,23 @@ pub fn is_palindrome_one_deletion(s: &str) -> bool {
         true
     }
 
-    todo!(
-        "Collect to Vec<char>. Two pointers l=0, r=len-1.\
-         When chars[l] != chars[r], return check(l+1,r) || check(l,r-1)."
-    )
+    todo!()
 }
 
 // --- Exercise 4d ---
-// Find ALL substrings of s that are palindromes. Return them in order of start position.
-// (If a substring of length >= 2, include it; include single chars too.)
-// This is the brute force approach — O(n³) is fine for now.
+// Return every contiguous substring of `s` that is itself a palindrome
+// (single characters included, length ≥ 1).
+//
+// Inputs:  s — borrowed &str.
+// Returns: Vec<String> of palindrome substrings. Order is not strictly checked
+//          beyond the test assertions below; brute force is acceptable.
+//
+// Edge cases the tests check:
+//   - "aab" → result includes "a", "b", and "aa" but NOT "ab"
+//     (the test uses .contains() so other palindromes like the second "a"
+//     may or may not be present; just include the obvious ones)
 pub fn all_palindrome_substrings(s: &str) -> Vec<String> {
-    todo!(
-        "For each start i, for each end j > i,\
-         check if s[i..j] is a palindrome using is_palindrome_exact.\
-         Collect the matching substrings.\
-         HINT: collect chars to Vec<char> first, then build substrings from slices."
-    )
+    todo!()
 }
 
 #[cfg(test)]

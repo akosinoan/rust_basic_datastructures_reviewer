@@ -16,36 +16,69 @@
 //   - Removing elements satisfying a condition
 
 // --- Exercise 4a ---
-// Reverse a slice in place using two pointers.
-// Do NOT use .reverse() — implement the swap loop yourself.
+// Reverse `v` in place. Do NOT use Vec::reverse — implement the swap loop yourself.
+//
+// Inputs:  v — a unique reference to a Vec<i32> you must mutate.
+// Returns: nothing. After the call, v reads in reverse order.
+//
+// Edge cases the tests check:
+//   - even length              → every position swaps
+//   - 2-element vec [1,2]      → [2,1]
+//   - single element           → unchanged
 pub fn reverse_in_place(v: &mut Vec<i32>) {
+<<<<<<< HEAD
     todo!("Use left and right pointers, swap v[left] and v[right], move them inward")
+=======
+    todo!()
+>>>>>>> 4f7c43a (explained the exercises better and added hint feature)
 }
 
 // --- Exercise 4b ---
-// Given a SORTED vec and a target sum, return the indices of the two numbers
-// that add up to target. Guaranteed exactly one solution.
-// HINT: if v[left] + v[right] < target → move left right
-//       if v[left] + v[right] > target → move right left
+// Given a SORTED slice `v`, return the indices (i, j) where v[i] + v[j] == target.
+// Exactly one solution is guaranteed.
+//
+// Inputs:  v — borrowed slice already in non-decreasing order;
+//          target — the desired sum.
+// Returns: (left, right) with left < right and v[left] + v[right] == target.
+//
+// Edge cases the tests check:
+//   - pair at the very ends             → e.g. [2,7,11,15], target 9 → (0,1)
+//   - pair in the interior              → e.g. [1,3,4,6], target 7  → (1,2)
+//   - pair at the very tail of the slice → e.g. [1,2,3,4,5], target 9 → (3,4)
 pub fn two_sum_sorted(v: &[i32], target: i32) -> (usize, usize) {
-    todo!("Use two pointers on a sorted array to find the pair")
+    todo!()
 }
 
 // --- Exercise 4c ---
-// Given a sorted vec, remove all duplicates in-place and return the new length.
-// The first k elements of the vec must be unique; the rest don't matter.
-// HINT: slow pointer tracks the write position; fast pointer scans ahead.
+// Given a SORTED `v`, remove duplicates IN PLACE. The first k positions of `v`
+// must contain the unique values in their original order. Return k.
+//
+// Inputs:  v — a unique reference to a sorted Vec<i32> you must mutate.
+// Returns: k — the count of unique values now stored at v[0..k].
+//          The contents of v[k..] are irrelevant (the test only checks v[..k]).
+//
+// Edge cases the tests check:
+//   - input [1,1,2,3,3,4] → k = 4, v[..4] == [1,2,3,4]
 pub fn remove_duplicates_in_place(v: &mut Vec<i32>) -> usize {
+<<<<<<< HEAD
     todo!("Use a slow pointer `k` that advances only when v[fast] != v[k-1]")
+=======
+    todo!()
+>>>>>>> 4f7c43a (explained the exercises better and added hint feature)
 }
 
 // --- Exercise 4d ---
-// Given an array of integers, return the indices of a pair that sums to target.
-// The array is NOT sorted here. You may assume exactly one solution.
-// HINT: this does NOT use two pointers — it uses a HashMap (preview of next module).
-//       But try it with two pointers on a copy first to feel the O(n²) brute force.
+// UNSORTED brute-force two-sum: return any pair of indices (i, j) with i < j and
+// nums[i] + nums[j] == target. Exactly one solution is guaranteed. O(n²) is fine.
+//
+// Inputs:  nums — a borrowed slice; target — the desired sum.
+// Returns: (i, j) with i < j and nums[i] + nums[j] == target.
+//
+// Edge cases the tests check:
+//   - [2,7,11,15] target 9 → (0,1)
+//   - [3,2,4]     target 6 → (1,2)
 pub fn two_sum_unsorted_brute(nums: &[i32], target: i32) -> (usize, usize) {
-    todo!("Use two nested loops: for i in 0..n, for j in i+1..n, check if nums[i]+nums[j]==target")
+    todo!()
 }
 
 #[cfg(test)]

@@ -3,7 +3,8 @@ use std::io::{self, Write};
 use crossterm::{cursor, execute, style::Stylize, terminal};
 
 use super::catalog::{Section, SECTIONS, total_exercises};
-use super::results::{ExerciseStatus, Results, TestResult};
+use super::hints::{self, ExerciseHint};
+use super::results::{ExerciseStatus, FileResults, Results, TestResult, current_exercise};
 use super::theme::{
     FOOTER, HEADER_BOTTOM, HEADER_TITLE_RESULTS, HEADER_TITLE_RUNNING, HEADER_TOP, RULE,
     progress_bar,
@@ -12,7 +13,8 @@ use super::theme::{
 const ERROR_RULE_LEN: usize = 40;
 const FN_NAME_PAD: usize = 32;
 const SECTION_LABEL_PAD: usize = 14;
-const DEFAULT_HINT: &str = "implement the todo!()";
+const HINT_RULE_LEN: usize = 50;
+const DEFAULT_HINT: &str = "type `hint` for help";
 
 pub struct Renderer {
     stdout: io::Stdout,
@@ -75,12 +77,11 @@ impl Renderer {
         println!();
     }
 
-    fn render_progress<'a>(&mut self, results: &Results) -> ProgressSummary<'a> {
+    fn render_progress(&mut self, results: &Results) -> ProgressSummary {
         println!("  {}", "Progress".bold());
         println!("  {}", RULE.dark_grey());
 
         let mut completed_files = 0;
-        let mut current: Option<(&'static Section, &'static str)> = None;
 
         for section in SECTIONS {
             let module_results = results.get(section.module);
@@ -94,20 +95,10 @@ impl Renderer {
                 .count();
             completed_files += file_done;
 
-            if current.is_none() {
-                current = section
-                    .exercises
-                    .iter()
-                    .find(|file| {
-                        !ExerciseStatus::from_file(module_results.and_then(|m| m.get(**file)))
-                            .is_complete()
-                    })
-                    .map(|file| (section, *file));
-            }
-
             render_section_row(section, file_done);
         }
 
+        let current = current_exercise(results);
         let total_files: usize = total_exercises();
 
         println!();
@@ -204,12 +195,102 @@ impl Renderer {
         println!();
         println!("  {}", FOOTER.dark_grey());
     }
+
+    pub fn show_hint(&mut self, results: &Results) {
+        println!();
+        let Some((section, file)) = current_exercise(results) else {
+            println!(
+                "  {}",
+                "All exercises complete — no hint to show.".green().bold()
+            );
+            let _ = self.stdout.flush();
+            return;
+        };
+
+        let Some(file_hints) = hints::hints_for(section.module, file) else {
+            println!(
+                "  {} {}::{}",
+                "No hint available for".dark_yellow(),
+                section.module.dark_yellow(),
+                file.dark_yellow()
+            );
+            let _ = self.stdout.flush();
+            return;
+        };
+
+        let file_results = results.get(section.module).and_then(|m| m.get(file));
+        let target = first_failing_hint(file_hints.hints, file_results);
+
+        let bar = "─".repeat(HINT_RULE_LEN);
+        let location = format!("{}::{}", section.module, file);
+        let header_label = format!(" Hint  {} ", location);
+        let header_pad = HINT_RULE_LEN.saturating_sub(header_label.len() + 2);
+        println!(
+            "  {}{}{}",
+            "──".dark_grey(),
+            header_label.cyan().bold(),
+            "─".repeat(header_pad).dark_grey()
+        );
+
+        match target {
+            Some(h) => {
+                println!("    {}", h.fn_name.bold());
+                println!("    {} {}", "→".cyan(), h.hint.dark_grey());
+            }
+            None => {
+                println!(
+                    "  {}",
+                    format!(
+                        "No failing function in {}::{} — save the file to re-run tests.",
+                        section.module, file
+                    )
+                    .dark_yellow()
+                );
+            }
+        }
+
+        println!("  {}", bar.dark_grey());
+        let _ = self.stdout.flush();
+    }
 }
 
-struct ProgressSummary<'a> {
+fn first_failing_hint<'a>(
+    hints: &'a [ExerciseHint],
+    file_results: Option<&FileResults>,
+) -> Option<&'a ExerciseHint> {
+    if hints.is_empty() {
+        return None;
+    }
+    let Some(tests) = file_results else {
+        return hints.first();
+    };
+    if !tests.values().any(|r| !r.passed) {
+        return None;
+    }
+    if let Some(h) = hints.iter().find(|h| {
+        tests.iter().any(|(name, r)| !r.passed && test_belongs_to_fn(name, h.fn_name))
+    }) {
+        return Some(h);
+    }
+    hints.first()
+}
+
+fn test_belongs_to_fn(test_name: &str, fn_name: &str) -> bool {
+    let Some(rest) = test_name.strip_prefix("test_") else {
+        return false;
+    };
+    if rest == fn_name {
+        return true;
+    }
+    rest.strip_prefix(fn_name)
+        .map(|tail| tail.starts_with('_'))
+        .unwrap_or(false)
+}
+
+struct ProgressSummary {
     completed_files: usize,
     total_files: usize,
-    current: Option<(&'a Section, &'a str)>,
+    current: Option<(&'static Section, &'static str)>,
 }
 
 fn render_section_row(section: &Section, file_done: usize) {

@@ -20,17 +20,23 @@
 //   Exactly one valid answer exists.
 //
 // ---------------------------------------------------------------
-// APPROACH: HashMap — O(n) time, O(n) space
-//
-// For each nums[i], compute complement = target - nums[i].
-// If complement is already in the map, we found the pair.
-// Otherwise, store nums[i] → i in the map for future lookups.
+// APPROACH (high-level): O(n) is achievable. The brute-force O(n²)
+// would re-scan the slice for every element. Aim for one pass.
 // ---------------------------------------------------------------
 
-use std::collections::HashMap;
-
+// --- two_sum ---
+// Inputs:  nums — owned Vec<i32>; target — desired sum.
+// Returns: Vec<i32> of length 2 with the two indices i, j (any order is
+//          accepted by the tests as long as nums[i] + nums[j] == target;
+//          the asserts below are written assuming i < j).
+//
+// Edge cases the tests check:
+//   - [2,7,11,15] target 9        → [0,1]
+//   - [3,2,4]     target 6        → [1,2]
+//   - [3,3]       target 6        → [0,1]   (two distinct positions, same value)
+//   - [-1,-2,-3,-4,-5] target -8  → [2,4]   (negative values)
 pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
-    todo!("Implement the O(n) HashMap solution")
+    todo!()
 }
 
 #[cfg(test)]

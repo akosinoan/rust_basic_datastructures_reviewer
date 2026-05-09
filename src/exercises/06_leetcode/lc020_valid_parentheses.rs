@@ -18,20 +18,21 @@
 //   "(]" → false
 //   "([)]" → false
 //   "{[]}" → true
-//
-// ---------------------------------------------------------------
-// APPROACH: Stack — O(n) time, O(n) space
-//
-// Push opening brackets. For each closing bracket,
-// check if it matches the top of the stack. If not → invalid.
-// At end: stack must be empty.
-// ---------------------------------------------------------------
 
+// --- is_valid ---
+// Inputs:  s — owned String of bracket characters only.
+// Returns: bool. The empty string is considered valid.
+//
+// Edge cases the tests check:
+//   - "()", "()[]{}"        → true
+//   - "{[()]}"              → true (nested correctly)
+//   - "(]"                  → false (mismatched type)
+//   - "([)]"                → false (interleaved, broken nesting)
+//   - ""                    → true
+//   - "("                   → false (unclosed)
+//   - "]"                   → false (close-with-empty-stack)
 pub fn is_valid(s: String) -> bool {
-    todo!(
-        "Use Vec<char> as stack. Match ')' with '(', ']' with '[', '}}' with '{{'.\
-         Return false if top doesn't match. Return stack.is_empty() at end."
-    )
+    todo!()
 }
 
 #[cfg(test)]

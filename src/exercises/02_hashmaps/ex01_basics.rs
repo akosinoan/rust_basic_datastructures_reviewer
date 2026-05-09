@@ -15,34 +15,72 @@
 use std::collections::HashMap;
 
 // --- Exercise 1a ---
-// Build a HashMap from the given pairs and return it.
+// Build a HashMap<String, i32> from an array of (&str, i32) pairs.
+//
+// Inputs:  pairs — a borrowed slice of tuples; the &str values are short-lived
+//          so you must convert them into owned Strings for the map keys.
+// Returns: a HashMap whose entries match the input pairs one-for-one.
+//
+// Edge cases the tests check:
+//   - several distinct keys → all present, .len() equals number of pairs
 pub fn build_map(pairs: &[(&str, i32)]) -> HashMap<String, i32> {
-    todo!("Insert each (key, value) pair into a HashMap and return it")
+    todo!()
 }
 
 // --- Exercise 1b ---
-// Return the value for a key, or 0 if the key doesn't exist.
+// Look up `key` in `map`. Return the stored value, or 0 if absent.
+//
+// Inputs:  map — borrowed HashMap; key — &str to look up.
+// Returns: the i32 value associated with key, or 0 if no such entry exists.
+//
+// Edge cases the tests check:
+//   - key present  → its stored value
+//   - key absent   → 0
 pub fn get_or_zero(map: &HashMap<String, i32>, key: &str) -> i32 {
-    todo!("Use .get() and unwrap with a default, or .copied().unwrap_or(0)")
+    todo!()
 }
 
 // --- Exercise 1c ---
-// Remove a key from the map and return its value, or None if absent.
+// Remove `key` from `map` and return its old value.
+//
+// Inputs:  map — exclusive reference; key — &str to remove.
+// Returns: Some(value) if the key existed, else None.
+//          A second call with the same key (already removed) must return None.
+//
+// Edge cases the tests check:
+//   - first call on present key  → Some(value), key gone afterwards
+//   - second call on same key    → None
+//   - map is empty after removal → assert!(map.is_empty())
 pub fn remove_key(map: &mut HashMap<String, i32>, key: &str) -> Option<i32> {
-    todo!("Use .remove()")
+    todo!()
 }
 
 // --- Exercise 1d ---
-// Return a sorted Vec of all keys in the map.
-// HINT: .keys() returns an iterator; collect into Vec<&String>, then sort
+// Return every key in `map`, sorted alphabetically.
+//
+// Inputs:  map — borrowed HashMap (NOT consumed).
+// Returns: Vec<String> of every key, in lexicographic ascending order.
+//          Note keys must be owned (clone them); the map keeps its ownership.
+//
+// Edge cases the tests check:
+//   - inserts in scrambled order  → output is alphabetically sorted
 pub fn sorted_keys(map: &HashMap<String, i32>) -> Vec<String> {
-    todo!("Collect keys, sort them, return owned Strings")
+    todo!()
 }
 
 // --- Exercise 1e ---
-// Merge two maps. If a key appears in both, sum the values.
+// Merge two maps. If a key appears in both, the result stores the SUM of values.
+//
+// Inputs:  a, b — owned HashMaps (you may consume both).
+// Returns: a new HashMap containing every key from either input. For overlapping
+//          keys, the value is a + b's contributions added together.
+//
+// Edge cases the tests check:
+//   - keys only in a              → unchanged
+//   - keys only in b              → carried in
+//   - keys in both                → sum of the two values (e.g. y: 2 + 3 = 5)
 pub fn merge_maps(a: HashMap<String, i32>, b: HashMap<String, i32>) -> HashMap<String, i32> {
-    todo!("Start with one map, then for each entry in the other, add or insert")
+    todo!()
 }
 
 #[cfg(test)]

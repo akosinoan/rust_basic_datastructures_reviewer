@@ -12,56 +12,62 @@ pub struct StreamProcessor {
 }
 
 impl StreamProcessor {
-    // Create an empty StreamProcessor.
+    // Construct an empty StreamProcessor.
     pub fn new() -> Self {
-        todo!("Return StreamProcessor with an empty VecDeque")
+        todo!()
     }
 
-    // Add a value to the back of the window.
+    // Append `val` to the back of the window.
     pub fn enqueue(&mut self, val: i32) {
-        todo!("push_back onto self.window")
+        todo!()
     }
 
-    // Remove and return the value at the front of the window, or None if empty.
+    // Remove and return the value at the FRONT of the window.
+    //
+    // Returns: Some(value) if the window is non-empty, else None.
     pub fn dequeue(&mut self) -> Option<i32> {
-        todo!("pop_front from self.window")
+        todo!()
     }
 
-    // Return the maximum value currently in the window, or None if empty.
-    // Simple scan is fine here — O(n) is acceptable.
+    // Return the maximum value currently in the window. A simple linear scan
+    // is acceptable here (O(n)).
+    //
+    // Returns: Some(max) if non-empty, else None.
     pub fn window_max(&self) -> Option<i32> {
-        todo!("self.window.iter().max() — copy the i32 out")
+        todo!()
     }
 }
 
 // --- Quiz 5b ---
-// Sliding window maximum (fixed size k).
+// Sliding window maximum (fixed window of size k).
 //
-// Return a Vec where each entry is the max of the k-element window
-// ending at that position (starting once the first full window is filled).
-// Result length: nums.len() - k + 1
+// Inputs:  nums — borrowed slice; k — usize, 1 ≤ k ≤ nums.len().
+// Returns: Vec<i32> of length nums.len() - k + 1, with result[i] equal to
+//          the max of nums[i..i+k]. Aim for O(n).
 //
-// HINT: maintain a monotonic deque of *indices* (front = index of current max).
-//   For each i:
-//     1. Pop front while front index is out of the window (< i - k + 1)
-//     2. Pop back while nums[back] <= nums[i]  (smaller values can never be max)
-//     3. Push i to back
-//     4. Once i >= k-1, record nums[deque.front()] as the window max
+// Examples:
+//   nums = [1,3,-1,-3,5,3,6,7], k = 3 → [3,3,5,5,6,7]
+//   nums = [4,2,7],             k = 1 → [4,2,7]
+//   nums = [1,2,3],             k = 3 → [3]
 pub fn sliding_window_maxes(nums: &[i32], k: usize) -> Vec<i32> {
-    todo!("monotonic deque of indices for O(n) window max")
+    todo!()
 }
 
 // --- Quiz 5c ---
-// Longest subarray whose sum is ≤ k (all elements are non-negative).
+// Length of the longest contiguous subarray of `nums` whose sum is ≤ k.
+// You may assume every element of `nums` is non-negative.
 //
-// Return the length of the longest contiguous subarray with sum ≤ k.
+// Inputs:  nums — borrowed slice of non-negative i32; k — i32 budget.
+// Returns: usize length of the longest qualifying subarray. 0 if none qualify.
 //
-// HINT: two-pointer / shrinking window.
-//   Expand right, adding nums[right] to the running sum.
-//   While sum > k, subtract nums[left] and advance left.
-//   Track max(right - left + 1) at each step.
+// Examples:
+//   nums = [1,2,3,4,5], k = 11  → 4   ([1,2,3,4]=10 ≤ 11)
+//   nums = [1,2,3,4,5], k = 15  → 5   (whole array sums to 15)
+//   nums = [5,5,5],     k = 4   → 0   (every single element exceeds 4)
+//   nums = [3],         k = 3   → 1
+//   nums = [4],         k = 3   → 0
 pub fn longest_subarray_sum_le(nums: &[i32], k: i32) -> usize {
-    todo!("two-pointer: expand right, shrink left when sum > k")
+    todo!()
 }
 
 #[cfg(test)]
@@ -131,7 +137,7 @@ mod tests {
 
     #[test]
     fn test_longest_subarray_sum_le() {
-        assert_eq!(longest_subarray_sum_le(&[1, 2, 3, 4, 5], 11), 4); // [1,2,3,4] or [2,3,4] or [1,2,3,5]... → [1,2,3,4]=10 ≤ 11
+        assert_eq!(longest_subarray_sum_le(&[1, 2, 3, 4, 5], 11), 4);
         assert_eq!(longest_subarray_sum_le(&[1, 2, 3, 4, 5], 15), 5);
         assert_eq!(longest_subarray_sum_le(&[5, 5, 5], 4), 0);
     }

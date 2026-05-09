@@ -11,40 +11,66 @@ pub struct TextAnalyzer {
 }
 
 impl TextAnalyzer {
-    // Store the text (convert &str to owned String).
+    // Construct a TextAnalyzer holding an OWNED copy of `text`.
+    //
+    // Inputs:  text — &str (caller still owns the original).
+    // Returns: TextAnalyzer whose `text` field stores an owned String.
     pub fn new(text: &str) -> Self {
-        todo!("Store text as an owned String")
+        todo!()
     }
 
-    // Number of whitespace-separated words.
+    // Number of whitespace-separated words in the stored text.
+    //
+    // Returns: usize. "" → 0; "the quick brown fox" → 4.
     pub fn word_count(&self) -> usize {
-        todo!("self.text.split_whitespace().count()")
+        todo!()
     }
 
-    // Frequency of each character (including spaces and punctuation).
+    // Frequency of every CHARACTER in the stored text (spaces and punctuation included).
+    //
+    // Returns: HashMap<char, usize>. Characters never seen are absent (not zero).
+    //
+    // Edge cases the tests check:
+    //   - "aab" → {'a':2, 'b':1}
     pub fn char_frequency(&self) -> HashMap<char, usize> {
-        todo!("iterate chars(), build frequency HashMap")
+        todo!()
     }
 
-    // The longest word by character count, or None if the text is empty.
-    // Ties: return whichever comes first.
-    // HINT: split_whitespace().max_by_key(|w| w.len())
+    // Longest word in the text by char count, or None if there are no words.
+    //
+    // Returns: Option<&str> referencing into self.text. Ties resolve to whichever
+    //          word the iteration encounters first.
+    //
+    // Edge cases the tests check:
+    //   - "I love Rust programming" → Some("programming")
+    //   - ""                        → None
     pub fn longest_word(&self) -> Option<&str> {
-        todo!("split_whitespace, find max by length")
+        todo!()
     }
 
-    // True if the text contains every letter a–z at least once (case-insensitive).
-    // HINT: collect lowercase chars into a HashSet, check len == 26
+    // Pangram check: does the text contain every English letter a-z (case-insensitive)?
+    //
+    // Returns: bool.
+    //
+    // Edge cases the tests check:
+    //   - "the quick brown fox jumps over the lazy dog" → true
+    //   - "hello world"                                  → false
     pub fn is_pangram(&self) -> bool {
-        todo!("collect unique lowercase alpha chars, is the set size 26?")
+        todo!()
     }
 
-    // Run-length encode self.text: consecutive identical characters are
-    // replaced by their count followed by the character.
-    // Example: "aaabbc" → "3a2b1c"
-    // HINT: iterate chars(), track (current_char, run_length), flush on change
+    // Run-length encode the stored text: maximal runs of one character become
+    // <count><char>. Counts of 1 are kept (so "abc" → "1a1b1c"), making the
+    // encoding fully reversible.
+    //
+    // Returns: String.
+    //
+    // Edge cases the tests check:
+    //   - "aaabbc" → "3a2b1c"
+    //   - "abc"    → "1a1b1c"
+    //   - ""       → ""
     pub fn run_length_encode(&self) -> String {
-        todo!("count consecutive chars, write count+char to output String")
+        todo!()
     }
 }
 

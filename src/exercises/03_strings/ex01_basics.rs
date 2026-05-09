@@ -19,36 +19,69 @@
 //   .repeat(n)       — repeat n times → String
 
 // --- Exercise 1a ---
-// Return true if the string is a valid non-empty identifier:
-// starts with a letter or underscore, rest are alphanumeric or underscore.
+// Return true iff `s` is a valid identifier in the C/Rust sense.
+//
+// Inputs:  s — borrowed &str.
+// Returns: true iff
+//   1. s is non-empty
+//   2. the first character is a letter or '_'
+//   3. every remaining character is alphanumeric or '_'
+//
+// Edge cases the tests check:
+//   - "hello"      → true
+//   - "_private"   → true (leading underscore allowed)
+//   - "foo_bar2"   → true (digits allowed AFTER first char)
+//   - ""           → false (empty)
+//   - "2bad"       → false (starts with a digit)
+//   - "has space"  → false (whitespace)
+//   - "has-dash"   → false ('-' is not alphanumeric or '_')
 pub fn is_valid_identifier(s: &str) -> bool {
-    todo!(
-        "Check s.is_empty(), then check the first char with .chars().next(),\
-         then check all remaining chars with .chars().all(|c| c.is_alphanumeric() || c == '_')"
-    )
+    todo!()
 }
 
 // --- Exercise 1b ---
-// Return the string with the first character capitalized and the rest lowercased.
-// Handle empty string.
+// Capitalize: first character to UPPERCASE, every other character to lowercase.
+//
+// Inputs:  s — borrowed &str.
+// Returns: a new owned String. The empty string maps to "".
+//
+// Edge cases the tests check:
+//   - "hello world" → "Hello world"
+//   - "HELLO"       → "Hello"
+//   - ""            → ""
+//   - "a"           → "A"
 pub fn capitalize(s: &str) -> String {
-    todo!(
-        "Use .chars() to get the first char, uppercase it, then collect the rest lowercased.\
-         Concatenate with format!() or string push."
-    )
+    todo!()
 }
 
 // --- Exercise 1c ---
-// Count how many words are in the string (split by whitespace).
-// Consecutive spaces count as one delimiter. Trim edges.
+// Count whitespace-separated words. Runs of whitespace count as one delimiter,
+// and leading/trailing whitespace does not produce empty words.
+//
+// Inputs:  s — borrowed &str.
+// Returns: number of words.
+//
+// Edge cases the tests check:
+//   - "hello world"            → 2
+//   - "  spaces   everywhere  "→ 2  (double spaces and edge whitespace ignored)
+//   - "one"                    → 1
+//   - ""                       → 0
 pub fn word_count(s: &str) -> usize {
-    todo!("Use .split_whitespace().count()")
+    todo!()
 }
 
 // --- Exercise 1d ---
-// Return true if `s` ends with any of the given suffixes.
+// Return true iff `s` ends with at least one of `suffixes`.
+//
+// Inputs:  s — borrowed &str; suffixes — borrowed slice of &str.
+// Returns: bool.
+//
+// Edge cases the tests check:
+//   - "image.png" with ["png","jpg","gif"] → true
+//   - "doc.pdf" with the same list         → false
+//   - "" with ["png"]                      → false
 pub fn ends_with_any(s: &str, suffixes: &[&str]) -> bool {
-    todo!("Use .iter().any(|suf| s.ends_with(suf))")
+    todo!()
 }
 
 #[cfg(test)]

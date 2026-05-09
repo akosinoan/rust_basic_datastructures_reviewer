@@ -10,58 +10,66 @@
 //   Fixed size window  — window always has exactly k elements
 //   Variable window    — window grows/shrinks based on a condition
 
-use std::collections::VecDeque;
-
 // --- Exercise 2a ---
-// Fixed window: return the maximum sum of any subarray of size k.
-// O(n) using sliding window (not O(n*k) brute force).
+// Maximum sum of any contiguous subarray of length exactly `k`. O(n).
+//
+// Inputs:  nums — borrowed slice of i32; k — usize, 1 ≤ k ≤ nums.len().
+// Returns: i32 — the largest sum among all windows of size k.
+//
+// Examples:
+//   [2,1,5,1,3,2], k=3 → 9   (window [5,1,3])
+//   [1,2,3,4,5],   k=2 → 9   (window [4,5])
+//   [5],           k=1 → 5
 pub fn max_sum_fixed_window(nums: &[i32], k: usize) -> i32 {
-    todo!(
-        "Compute the sum of the first window. Then slide: add nums[i], subtract nums[i-k].\
-         Track the running max."
-    )
+    todo!()
 }
 
 // --- Exercise 2b ---
-// Variable window: return the length of the longest subarray
-// containing only 1s after deleting exactly one element.
-// LeetCode #1004 variant (with k=1 zero allowed).
+// Length of the longest run of 1s after deleting EXACTLY one element.
+// (LeetCode #1493 variant — at most one zero allowed in the window;
+//  the deleted slot always costs 1, even if no zeros exist.)
+//
+// Inputs:  nums — borrowed slice of 0/1 values.
+// Returns: usize — max(window_size) - 1 (we always pay for the deletion).
+//
+// Examples:
+//   [1,1,0,1]                 → 3
+//   [0,1,1,1,0,1,1,0,1]       → 5
+//   [1,1,1]                   → 2   (must delete one, even though all are 1)
 pub fn longest_ones_after_one_deletion(nums: &[i32]) -> usize {
-    todo!(
-        "Sliding window. Track zeros_in_window. Expand right always.\
-         When zeros_in_window > 1, shrink from left.\
-         Answer is max window size - 1 (for the deleted element)."
-    )
+    todo!()
 }
 
 // --- Exercise 2c ---
-// Variable window: length of the longest substring without repeating characters.
-// LeetCode #3.
-// HINT: use a HashMap to track the last seen index of each character.
-//       When a duplicate is found, move left to max(left, last_seen + 1).
+// LeetCode #3. Length of the longest substring of `s` with no repeating chars.
+//
+// Inputs:  s — borrowed &str (may be empty).
+// Returns: usize.
+//
+// Examples:
+//   "abcabcbb" → 3   ("abc")
+//   "bbbbb"    → 1
+//   "pwwkew"   → 3   ("wke")
+//   ""         → 0
 pub fn longest_unique_substring(s: &str) -> usize {
-    use std::collections::HashMap;
-    todo!(
-        "HashMap<char, usize> tracks last index of each char.\
-         Expand right, update left when duplicate found.\
-         Track max of (right - left + 1)."
-    )
+    todo!()
 }
 
 // --- Exercise 2d ---
-// Fixed window using a monotonic deque: return the maximum of each window of size k.
-// LeetCode #239. Brute force is O(n*k); this should be O(n).
-// HINT: maintain a VecDeque of indices in decreasing order of nums[i].
-//       The front always has the index of the current window's max.
-//       Before pushing i: pop from back while nums[back] <= nums[i].
-//       Before reading: pop from front if front index is outside the window.
+// LeetCode #239. For each window of size `k` over `nums`, return the max value.
+// Brute force is O(n·k); aim for O(n) using a deque of indices.
+//
+// Inputs:  nums — borrowed slice of i32; k — usize, 1 ≤ k ≤ nums.len().
+// Returns: Vec<i32> of length nums.len() - k + 1.
+//          result[i] is the max of nums[i..i+k].
+//
+// Example:
+//   nums = [1,3,-1,-3,5,3,6,7], k = 3
+//   windows:  [1,3,-1] [3,-1,-3] [-1,-3,5] [-3,5,3] [5,3,6] [3,6,7]
+//   maxes:       3        3         5         5        6        7
+//   answer:   [3, 3, 5, 5, 6, 7]
 pub fn sliding_window_maximum(nums: &[i32], k: usize) -> Vec<i32> {
-    todo!(
-        "Use a VecDeque<usize> of indices. Maintain decreasing values.\
-         For each i: remove out-of-window indices from front,\
-         remove smaller values from back, then push i.\
-         After filling first window, record deque.front() value each step."
-    )
+    todo!()
 }
 
 #[cfg(test)]
