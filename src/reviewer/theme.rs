@@ -3,6 +3,8 @@ pub const BAR_WIDTH: usize = 20;
 pub const RULE: &str =
     "──────────────────────────────────────────────────────────────";
 
+pub const RULE_HALF: &str = "──────────────────────────────────────────────";
+
 pub const HEADER_TOP: &str =
     "┌──────────────────────────────────────────────────────────────┐";
 pub const HEADER_TITLE_RUNNING: &str =
