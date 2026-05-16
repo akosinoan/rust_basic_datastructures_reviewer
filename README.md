@@ -8,13 +8,14 @@ Built in Rust 2024 with `notify` and `crossterm`. No external test framework, no
 
 ## At a Glance
 
-
- **Language**  Rust (edition 2024) 
- **Curriculum** 6 modules · 28 files · 117 `todo!()` stubs to implement 
- **Test surface**  148 unit tests covering every function, edge cases, and Unicode-aware string handling 
- **Runner engine**  ~1,600 LOC across 9 modules — file watcher, output parser, TUI renderer, hint engine 
- **Solutions**  Mirror layout, hidden behind a Cargo feature flag — opt-in, never auto-revealed 
- **Dependencies**  Two: `notify` (file events), `crossterm` (terminal UI) 
+| | |
+|---|---|
+| **Language** | Rust (edition 2024) |
+| **Curriculum** | 6 modules · 28 files · 117 `todo!()` stubs to implement |
+| **Test surface** | 148 unit tests covering every function, edge cases, and Unicode-aware string handling |
+| **Runner engine** | ~1,600 LOC across 9 modules — file watcher, output parser, TUI renderer, hint engine |
+| **Solutions** | Mirror layout, hidden behind a Cargo feature flag — opt-in, never auto-revealed |
+| **Dependencies** | Two: `notify` (file events), `crossterm` (terminal UI) |
 
 ---
 
